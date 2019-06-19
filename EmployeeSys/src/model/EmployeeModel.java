@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class EmployeeModel {
 	
-	public ArrayList<Employees> all() {
+	public static ArrayList<Employees> all() {
 		
 		try {
 			ArrayList<Employees> list = new ArrayList<>();
@@ -38,7 +38,7 @@ public class EmployeeModel {
 		
 	}
 	
-	public Employees find(int id) {
+	public static Employees find(int id) {
 		Employees em = new Employees();
 		try {
 			String sql = "select * from employees where eID=?";
@@ -63,7 +63,7 @@ public class EmployeeModel {
 		}
 	}
 	
-	public boolean create(Employees em) {
+	public static boolean create(Employees em) {
 		try {
 			
 			String sql = "insert into employees values(NULL, ?, ?, ?, ?, ?, ?, ?)";
@@ -84,7 +84,7 @@ public class EmployeeModel {
 		}
 	}
 	
-	public boolean edit(Employees em) {
+	public static boolean edit(Employees em) {
 		
 		try {
 			String sql = "update employees set first_name=?, last_name=?, email=?, dob=?, phone=?, position=?, salary=? where eID=?";
@@ -107,7 +107,7 @@ public class EmployeeModel {
 		
 	}
 	
-	public boolean delete(int id) {
+	public static boolean delete(int id) {
 		try {
 			String sql = "delete from employees where eID=?";
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);

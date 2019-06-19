@@ -19,7 +19,13 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+
 import com.toedter.calendar.JDayChooser;
+
+import employeeClass.Employees;
+import model.EmployeeModel;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 
@@ -27,12 +33,14 @@ public class AddEm {
 
 	JFrame frame;
 	private JTextField textField_firstName;
-	private JTextField textField_fullName;
+	private JTextField textField_lastName;
 	private JLabel lblBirthOfDate;
 	private JTextField textField_email;
 	private JTextField textField_phone;
 	private JLabel lblCancel;
 	private JTextField textField_salary;
+	private JDateChooser dateChooser_dob;
+	private JLabel lblSalary;
 
 	/**
 	 * Launch the application.
@@ -84,10 +92,10 @@ public class AddEm {
 		lblEid.setBounds(46, 115, 151, 27);
 		frame.getContentPane().add(lblEid);
 		
-		textField_fullName = new JTextField();
-		textField_fullName.setColumns(10);
-		textField_fullName.setBounds(229, 156, 279, 31);
-		frame.getContentPane().add(textField_fullName);
+		textField_lastName = new JTextField();
+		textField_lastName.setColumns(10);
+		textField_lastName.setBounds(229, 156, 279, 31);
+		frame.getContentPane().add(textField_lastName);
 		
 		JLabel lblFullName = new JLabel("Last Name : ");
 		lblFullName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,13 +137,47 @@ public class AddEm {
 		lblPosition.setBounds(60, 325, 146, 27);
 		frame.getContentPane().add(lblPosition);
 		
+		dateChooser_dob = new JDateChooser();
+		dateChooser_dob.setBounds(229, 197, 279, 30);
+		frame.getContentPane().add(dateChooser_dob);
+		
+		String[] position = {
+				"Employee",
+				"Manager",
+		};
+		JComboBox comboBox_position = new JComboBox(position);
+
+		comboBox_position.setBounds(229, 324, 278, 31);
+		frame.getContentPane().add(comboBox_position);
+		
+		lblSalary = new JLabel("Salary :");
+		lblSalary.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSalary.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		lblSalary.setBounds(84, 369, 114, 27);
+		frame.getContentPane().add(lblSalary);
+		
+		textField_salary = new JTextField();
+		textField_salary.setColumns(10);
+		textField_salary.setBounds(229, 368, 279, 31);
+		frame.getContentPane().add(textField_salary);
+		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
+//				frame.dispose();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String date = sdf.format(dateChooser_dob.getDate());
+				Employees em = new Employees(textField_firstName.getText(), textField_lastName.getText(), textField_email.getText(), date, textField_phone.getText(),
+											comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
 				try {
-					ShowAllEmploye show = new ShowAllEmploye();
-					show.frame.setVisible(true);
+					if (EmployeeModel.create(em)) {
+						frame.dispose();
+						ShowAllEmploye show = new ShowAllEmploye();
+						show.frame.setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Error adding employee to database");
+					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -165,28 +207,5 @@ public class AddEm {
 		lblCancel.setBounds(323, 499, 56, 16);
 		frame.getContentPane().add(lblCancel);
 		
-		JDateChooser dateChooser_dob = new JDateChooser();
-		dateChooser_dob.setBounds(229, 197, 279, 30);
-		frame.getContentPane().add(dateChooser_dob);
-		
-		String[] position = {
-				"Employee",
-				"Manager",
-		};
-		JComboBox comboBox_position = new JComboBox(position);
-
-		comboBox_position.setBounds(229, 324, 278, 31);
-		frame.getContentPane().add(comboBox_position);
-		
-		JLabel lblSalary = new JLabel("Salary :");
-		lblSalary.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSalary.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblSalary.setBounds(84, 369, 114, 27);
-		frame.getContentPane().add(lblSalary);
-		
-		textField_salary = new JTextField();
-		textField_salary.setColumns(10);
-		textField_salary.setBounds(229, 368, 279, 31);
-		frame.getContentPane().add(textField_salary);
 	}
 }
