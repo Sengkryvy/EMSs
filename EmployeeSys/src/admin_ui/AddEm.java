@@ -19,20 +19,20 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JComboBox;
 
 public class AddEm {
 
 	JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textField_firstName;
+	private JTextField textField_fullName;
 	private JLabel lblBirthOfDate;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textField_email;
+	private JTextField textField_phone;
 	private JLabel lblCancel;
+	private JTextField textField_salary;
 
 	/**
 	 * Launch the application.
@@ -73,66 +73,33 @@ public class AddEm {
 		lblNewLabel.setBounds(203, 37, 278, 31);
 		frame.getContentPane().add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(229, 112, 279, 31);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		textField_firstName = new JTextField();
+		textField_firstName.setBounds(229, 112, 279, 31);
+		frame.getContentPane().add(textField_firstName);
+		textField_firstName.setColumns(10);
 		
-		JLabel lblEid = new JLabel(" EID :");
+		JLabel lblEid = new JLabel("First Name :");
 		lblEid.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblEid.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEid.setBounds(114, 113, 76, 27);
+		lblEid.setBounds(46, 115, 151, 27);
 		frame.getContentPane().add(lblEid);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(229, 156, 279, 31);
-		frame.getContentPane().add(textField_1);
+		textField_fullName = new JTextField();
+		textField_fullName.setColumns(10);
+		textField_fullName.setBounds(229, 156, 279, 31);
+		frame.getContentPane().add(textField_fullName);
 		
-		JLabel lblFullName = new JLabel("Full Name : ");
+		JLabel lblFullName = new JLabel("Last Name : ");
 		lblFullName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFullName.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblFullName.setBounds(39, 160, 178, 27);
+		lblFullName.setBounds(38, 155, 178, 27);
 		frame.getContentPane().add(lblFullName);
 		
-		lblBirthOfDate = new JLabel("Birth of Date : ");
+		lblBirthOfDate = new JLabel("Date of Birth :");
 		lblBirthOfDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBirthOfDate.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblBirthOfDate.setBounds(26, 200, 178, 27);
+		lblBirthOfDate.setBounds(23, 200, 178, 27);
 		frame.getContentPane().add(lblBirthOfDate);
-		
-		JLabel lblD = new JLabel("Day");
-		lblD.setHorizontalAlignment(SwingConstants.CENTER);
-		lblD.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblD.setBounds(203, 204, 56, 21);
-		frame.getContentPane().add(lblD);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(252, 200, 42, 27);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
-		
-		JLabel lblMonth = new JLabel("month");
-		lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMonth.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblMonth.setBounds(293, 204, 56, 21);
-		frame.getContentPane().add(lblMonth);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(347, 200, 42, 27);
-		frame.getContentPane().add(textField_3);
-		
-		JLabel lblYear = new JLabel("Year");
-		lblYear.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYear.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblYear.setBounds(388, 204, 56, 21);
-		frame.getContentPane().add(lblYear);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(439, 200, 69, 27);
-		frame.getContentPane().add(textField_4);
 		
 		JLabel lblEmail = new JLabel("Email :");
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,10 +107,10 @@ public class AddEm {
 		lblEmail.setBounds(71, 240, 146, 27);
 		frame.getContentPane().add(lblEmail);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(229, 236, 279, 31);
-		frame.getContentPane().add(textField_5);
+		textField_email = new JTextField();
+		textField_email.setColumns(10);
+		textField_email.setBounds(229, 236, 279, 31);
+		frame.getContentPane().add(textField_email);
 		
 		JLabel lblPhone = new JLabel("Phone :");
 		lblPhone.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,21 +118,16 @@ public class AddEm {
 		lblPhone.setBounds(71, 280, 146, 27);
 		frame.getContentPane().add(lblPhone);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(229, 280, 279, 31);
-		frame.getContentPane().add(textField_6);
+		textField_phone = new JTextField();
+		textField_phone.setColumns(10);
+		textField_phone.setBounds(229, 280, 279, 31);
+		frame.getContentPane().add(textField_phone);
 		
 		JLabel lblPosition = new JLabel("Position :");
 		lblPosition.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPosition.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblPosition.setBounds(60, 325, 146, 27);
 		frame.getContentPane().add(lblPosition);
-		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(229, 326, 279, 31);
-		frame.getContentPane().add(textField_7);
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -181,7 +143,7 @@ public class AddEm {
 			}
 		});
 		btnCreate.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnCreate.setBounds(293, 409, 114, 45);
+		btnCreate.setBounds(291, 441, 114, 45);
 		frame.getContentPane().add(btnCreate);
 		
 		lblCancel = new JLabel("cancel");
@@ -200,7 +162,31 @@ public class AddEm {
 		lblCancel.setForeground(new Color(255, 0, 0));
 		lblCancel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCancel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblCancel.setBounds(321, 465, 56, 16);
+		lblCancel.setBounds(323, 499, 56, 16);
 		frame.getContentPane().add(lblCancel);
+		
+		JDateChooser dateChooser_dob = new JDateChooser();
+		dateChooser_dob.setBounds(229, 197, 279, 30);
+		frame.getContentPane().add(dateChooser_dob);
+		
+		String[] position = {
+				"Employee",
+				"Manager",
+		};
+		JComboBox comboBox_position = new JComboBox(position);
+
+		comboBox_position.setBounds(229, 324, 278, 31);
+		frame.getContentPane().add(comboBox_position);
+		
+		JLabel lblSalary = new JLabel("Salary :");
+		lblSalary.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSalary.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		lblSalary.setBounds(84, 369, 114, 27);
+		frame.getContentPane().add(lblSalary);
+		
+		textField_salary = new JTextField();
+		textField_salary.setColumns(10);
+		textField_salary.setBounds(229, 368, 279, 31);
+		frame.getContentPane().add(textField_salary);
 	}
 }
