@@ -14,15 +14,17 @@ public class AccountConnection {
 	
 	public AccountConnection() {}
 	static Connection myconnection;
-	static	Statement mystatement;
+	static Statement mystatement;
 	static ResultSet rs;
 	 String admin="admin";
 	 
 	public boolean login ( String user , String pass ) {
 		try {
-			 myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
-			 mystatement=myconnection.createStatement();
-			 rs=mystatement.executeQuery("select * from account"); 
+			System.out.println("Before");
+			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
+			System.out.println("After");
+			mystatement=myconnection.createStatement();
+			rs=mystatement.executeQuery("select * from account"); 
 			while (rs.next()) {			
 				if(user.equals(rs.getString("username")) ) {
 					if(pass.equals(rs.getString("password")) ) {

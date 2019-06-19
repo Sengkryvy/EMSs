@@ -1,4 +1,4 @@
-create database  Employee;
+create database employee;
 #show databases; 
 use Employee;
 #drop database employee;
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
     `username` varchar(50) not null,	
     `password` varchar(50) not null,
     `email`		varchar(50) ,
-    `salary` double(10),
+    `salary` double(10, 2),
     `phone`		int(20),
     `position`	varchar(30) not null,
     
