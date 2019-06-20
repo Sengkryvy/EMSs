@@ -2,17 +2,12 @@ package admin_ui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,8 +15,6 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-
-import com.toedter.calendar.JDayChooser;
 
 import employeeClass.Employees;
 import model.EmployeeModel;

@@ -3,21 +3,17 @@ package admin_ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JSplitPane;
-import javax.swing.JLayeredPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+
+import javax.swing.JOptionPane;
+
 import javax.swing.JTextField;
-import java.awt.GridLayout;
+
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
+
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,14 +35,33 @@ import javax.swing.JScrollPane;
 public class Home {
 
 	public JFrame frame;
-	JLabel lblMessage;
-	JPanel panel_message;
-	JPanel panel_attendance;
-	JPanel panel_promote;
-	JPanel panel_premission ;
-	JLabel tittle;
-	JPanel panel_showStaff;
+	
+	//panel 
+	private JPanel panel_message;
+	private JPanel panel_attendance;
+	private JPanel panel_promote;
+	private JPanel panel_premission ;
+	private JPanel panel_showStaff;
 	private JTable table_employees;
+	static DefaultTableModel model;
+	
+	//textField
+	private JTextField textField;
+	
+	//label
+	private JLabel lblMessage;
+	private JLabel tittle;
+	
+	//button
+	private JButton btnEdit;
+	private JButton btnDelete;
+	private JButton btnSearch;
+	private JButton btnAdd;
+	
+	
+	//variables
+	private Employees em = new Employees();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +74,7 @@ public class Home {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}	
 		});
 	}
 
@@ -70,12 +85,11 @@ public class Home {
 		initialize();
 	}
 	
-	public void show_all_employee() {
+	public static void fill_table() {
 		ArrayList<Employees> list = EmployeeModel.all();
-		DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
+		//DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
 		Object[] row = new Object[8];
-		String[] column = { "eID", "first_name", "last_name", "email", "dob", "phone", "position", "salary" };
-		
+		//String[] row = new String[8];
 		for (Employees e : list) {
 			row[0] = e.getID();
 			row[1] = e.getFirstname();
@@ -205,19 +219,6 @@ public class Home {
 		lblPromote.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPromote.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		
-		JButton btnAddEmployee = new JButton("Add Employe");
-		btnAddEmployee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frame.setVisible(false);
-				try {
-					AddEm addEM = new AddEm();
-					addEM.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
 
 		JLabel lblAllStaff = new JLabel("All Staff");
 		lblAllStaff.addMouseListener(new MouseAdapter() {
@@ -236,40 +237,114 @@ public class Home {
 		lblAllStaff.setBounds(0, 13, 194, 59);
 		btn_content.add(lblAllStaff);
 		
+		btnAdd = new JButton("Add Employe");
+		btnAdd.setBounds(32, 508, 137, 42);
+		btn_content.add(btnAdd);
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				try {
+					AddEm addEM = new AddEm();
+					addEM.frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+			
+		// All Employee
+		btnAdd.setForeground(new Color(255, 255, 255));
+		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnAdd.setBackground(new Color(0, 0, 255));
+		
 		panel_showStaff = new JPanel();
 		panel_showStaff.setBackground(SystemColor.inactiveCaption);
 		panel_showStaff.setBounds(196, 57, 977, 563);
 		frame.getContentPane().add(panel_showStaff);
 		panel_showStaff.setLayout(null);
 		
-		
-		//All Staff
-		JLabel label = new JLabel("All Staff");
-		label.setBounds(450, 13, 79, 27);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		panel_showStaff.add(label);
-		
+			//Table of all Employees
 			String[] column = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
-			DefaultTableModel model = new DefaultTableModel();
+			model = new DefaultTableModel();
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 59, 953, 491);
+			model.setColumnIdentifiers(column); 
+			scrollPane.setBounds(12, 13, 953, 482);
 			panel_showStaff.add(scrollPane);
 			table_employees = new JTable(model);
-			scrollPane.setViewportView(table_employees);
-			for (int i=0; i<8; i++) {
-				model.addColumn(column[i]);
-			}
+			fill_table();
+			table_employees.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnDelete.setEnabled(true);
+					btnEdit.setEnabled(true);
+					int row = table_employees.getSelectedRow();
+					int col = table_employees.getSelectedColumn();
+					
+					em.setID(Integer.parseInt(table_employees.getValueAt(row, 0).toString()));
+					em.setFirstname(table_employees.getValueAt(row, 1).toString());
+					em.setLastname(table_employees.getValueAt(row, 2).toString());
+					em.setEmail(table_employees.getValueAt(row, 3).toString());
+					em.setDob(table_employees.getValueAt(row, 4).toString());
+					em.setPhone(table_employees.getValueAt(row, 5).toString());
+					em.setPosition(table_employees.getValueAt(row, 6).toString());
+					em.setSalary(Double.parseDouble(table_employees.getValueAt(row, 7).toString()));
+					
+					System.out.println(row + " " + col + " = " + table_employees.getValueAt(row, col));
+					System.out.println(em.toString() + em.getID());
+					
+				}
+			});
+				scrollPane.setViewportView(table_employees);
+				
+				//Delete
+				btnDelete = new JButton("Delete");
+				btnDelete.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane.showMessageDialog(null, "DELETE");
+						EmployeeModel.delete(em.getID());
+						model.setRowCount(0);
+						fill_table();
+					}
+				});
+				btnDelete.setForeground(Color.WHITE);
+				btnDelete.setFont(new Font("Tahoma", Font.BOLD, 15));
+				btnDelete.setBackground(new Color(255, 0, 0));
+				btnDelete.setBounds(828, 508, 137, 42);
+				panel_showStaff.add(btnDelete);
+				btnDelete.setEnabled(false);
+				
+				//Edit
+				btnEdit = new JButton("Edit");
+				btnEdit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						EditEm editEm = new EditEm(em);
+						editEm.frame.setVisible(true);
+					}
+				});
+				btnEdit.setForeground(Color.WHITE);
+				btnEdit.setFont(new Font("Tahoma", Font.BOLD, 15));
+				btnEdit.setBackground(new Color(255, 140, 0));
+				btnEdit.setBounds(666, 508, 137, 42);
+				panel_showStaff.add(btnEdit);
+				btnEdit.setEnabled(false);
+				
+				//Search
+				textField = new JTextField();
+				textField.setBounds(12, 508, 324, 42);
+				panel_showStaff.add(textField);
+				textField.setColumns(10);
 			
-			show_all_employee();
-		
-			
-		// Add Employee
-		btnAddEmployee.setForeground(new Color(255, 255, 255));
-		btnAddEmployee.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnAddEmployee.setBackground(new Color(0, 0, 255));
-		btnAddEmployee.setBounds(28, 497, 137, 42);
-		btn_content.add(btnAddEmployee);
+				btnSearch = new JButton("Search");
+				btnSearch.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+				btnSearch.setForeground(Color.WHITE);
+				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 15));
+				btnSearch.setBackground(new Color(128, 128, 128));
+				btnSearch.setBounds(348, 508, 137, 42);
+				panel_showStaff.add(btnSearch);
 		
 		panel_message = new JPanel();
 		panel_message.setBackground(new Color(224, 255, 255));
@@ -320,6 +395,7 @@ public class Home {
 		lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		lblAttendancePage.setBounds(386, 5, 206, 33);
 		panel_attendance.add(lblAttendancePage);
+		
 		
 		
 	}
