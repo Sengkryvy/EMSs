@@ -22,12 +22,19 @@ import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import employeeClass.Employees;
+import model.EmployeeModel;
+
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
 
 public class Home {
 
@@ -39,6 +46,7 @@ public class Home {
 	JPanel panel_premission ;
 	JLabel tittle;
 	JPanel panel_showStaff;
+	private JTable table_employees;
 	/**
 	 * Launch the application.
 	 */
@@ -60,6 +68,25 @@ public class Home {
 	 */
 	public Home() {
 		initialize();
+	}
+	
+	public void show_all_employee() {
+		ArrayList<Employees> list = EmployeeModel.all();
+		DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
+		Object[] row = new Object[8];
+		String[] column = { "eID", "first_name", "last_name", "email", "dob", "phone", "position", "salary" };
+		
+		for (Employees e : list) {
+			row[0] = e.getID();
+			row[1] = e.getFirstname();
+			row[2] = e.getLastname();
+			row[3] = e.getEmail();
+			row[4] = e.getDob();
+			row[5] = e.getPhone();
+			row[6] = e.getPosition();
+			row[7] = e.getSalary();
+			model.addRow(row);
+		}
 	}
 
 	/**
@@ -215,12 +242,29 @@ public class Home {
 		frame.getContentPane().add(panel_showStaff);
 		panel_showStaff.setLayout(null);
 		
+		
+		//All Staff
 		JLabel label = new JLabel("All Staff");
 		label.setBounds(450, 13, 79, 27);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		panel_showStaff.add(label);
 		
+			String[] column = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
+			DefaultTableModel model = new DefaultTableModel();
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(12, 59, 953, 491);
+			panel_showStaff.add(scrollPane);
+			table_employees = new JTable(model);
+			scrollPane.setViewportView(table_employees);
+			for (int i=0; i<8; i++) {
+				model.addColumn(column[i]);
+			}
+			
+			show_all_employee();
+		
+			
+		// Add Employee
 		btnAddEmployee.setForeground(new Color(255, 255, 255));
 		btnAddEmployee.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAddEmployee.setBackground(new Color(0, 0, 255));
@@ -232,6 +276,7 @@ public class Home {
 		panel_message.setBounds(194, 57, 979, 563);
 		frame.getContentPane().add(panel_message);
 		
+		// Message Page
 		JLabel lblMessagePage = new JLabel("Message page ");
 		lblMessagePage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessagePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
