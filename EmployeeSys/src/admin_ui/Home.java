@@ -264,22 +264,19 @@ public class Home {
 		frame.getContentPane().add(panel_showStaff);
 		panel_showStaff.setLayout(null);
 		
-<<<<<<< HEAD
-=======
-			//Table of all Employees
->>>>>>> branch 'master' of https://github.com/Sengkryvy/EMSs.git
+
 			String[] column = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
 			model = new DefaultTableModel();
 			JScrollPane scrollPane = new JScrollPane();
-<<<<<<< HEAD
+
 			scrollPane.setBounds(12, 13, 953, 537);
-=======
+
 			model.setColumnIdentifiers(column); 
 			scrollPane.setBounds(12, 13, 953, 482);
->>>>>>> branch 'master' of https://github.com/Sengkryvy/EMSs.git
+
 			panel_showStaff.add(scrollPane);
 			table_employees = new JTable(model);
-<<<<<<< HEAD
+
 			scrollPane.setViewportView(table_employees);
 			for (int i=0; i<8; i++) {
 				model.addColumn(column[i]);
@@ -293,7 +290,7 @@ public class Home {
 		btnAddEmployee.setBackground(new Color(0, 0, 255));
 		btnAddEmployee.setBounds(28, 497, 137, 42);
 		btn_content.add(btnAddEmployee);
-=======
+
 			fill_table();
 			table_employees.addMouseListener(new MouseAdapter() {
 				@Override
