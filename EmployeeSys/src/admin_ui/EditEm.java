@@ -190,7 +190,7 @@ public class EditEm {
 					System.out.println(em_updated.toString());
 					System.out.println(em_updated.getID());
 					if (EmployeeModel.edit(em_updated)) {
-						Home.model.setRowCount(0);
+						Home.model_employees.setRowCount(0);
 						Home.fill_table();
 						frame.dispose();
 					} else {

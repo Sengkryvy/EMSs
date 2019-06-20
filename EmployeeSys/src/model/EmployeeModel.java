@@ -97,7 +97,6 @@ public class EmployeeModel {
 			ps.setString(6, em.getPosition());
 			ps.setDouble(7, em.getSalary());
 			ps.setInt(8, em.getID());
-			
 			return ps.executeUpdate() > 0;
 			
 		} catch (Exception e) {

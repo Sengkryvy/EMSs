@@ -37,19 +37,17 @@ public class Home {
 	public JFrame frame;
 	
 	//panel 
-	private JPanel panel_message;
 	private JPanel panel_attendance;
-	private JPanel panel_promote;
 	private JPanel panel_permission ;
 	private JPanel panel_showStaff;
 	private JTable table_employees;
-	static DefaultTableModel model;
+	static DefaultTableModel model_employees;
+	static DefaultTableModel model_permission;
 	
 	//textField
 	private JTextField textField;
 	
 	//label
-	private JLabel lblMessage;
 	private JLabel tittle;
 	
 	//button
@@ -61,6 +59,9 @@ public class Home {
 	
 	//variables
 	private Employees em = new Employees();
+	private JPanel panel_main;
+	private JTable table_permission;
+	private JScrollPane scrollPane_permission_table;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -93,7 +94,7 @@ public class Home {
 			row[5] = e.getPhone();
 			row[6] = e.getPosition();
 			row[7] = e.getSalary();
-			model.addRow(row);
+			model_employees.addRow(row);
 		}
 	}
 
@@ -112,7 +113,7 @@ public class Home {
 		bar.setLayout(null);
 			
 			//Title
-			tittle = new JLabel("Staff");
+			tittle = new JLabel("All Staff");
 			tittle.setHorizontalAlignment(SwingConstants.CENTER);
 			tittle.setFont(new Font("Times New Roman", Font.BOLD, 24));
 			tittle.setBounds(511, 0, 286, 59);
@@ -134,32 +135,12 @@ public class Home {
 			separator.setBounds(193, -4, 2, 65);
 			bar.add(separator);
 			separator.setOrientation(SwingConstants.VERTICAL);
-			
-			//Message button
-			lblMessage = new JLabel("Message");
-			lblMessage.setBounds(1032, 0, 141, 59);
-			bar.add(lblMessage);
-			lblMessage.setBackground(new Color(0, 255, 255));
-			lblMessage.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-					panel_message.setVisible(true);
-					panel_attendance.setVisible(false);
-					panel_permission.setVisible(false);
-					panel_promote.setVisible(false);
-					tittle.setText("Message");
-					panel_showStaff.setVisible(false);
-				
-				}
-			});
-			lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblMessage.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		
 		//Side-bar
 		JPanel btn_sidebar = new JPanel();
 		btn_sidebar.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btn_sidebar.setBackground(SystemColor.activeCaption);
-		btn_sidebar.setBounds(0, 57, 195, 563);
+		btn_sidebar.setBounds(0, 57, 194, 563);
 		frame.getContentPane().add(btn_sidebar);
 		btn_sidebar.setLayout(null);
 		
@@ -168,15 +149,17 @@ public class Home {
 			lblCheckAttandent.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					panel_message.setVisible(false);
-					panel_attendance.setVisible(true);	
-					panel_permission.setVisible(false);
-					panel_promote.setVisible(false);
 					tittle.setText("Attandence");
-					panel_showStaff.setVisible(false);
+					panel_main.removeAll();
+					panel_main.repaint();
+					panel_main.revalidate();
+					
+					panel_main.add(panel_attendance);
+					panel_main.repaint();
+					panel_main.revalidate();
 				}
 			});
-			lblCheckAttandent.setBounds(0, 85, 194, 59);
+			lblCheckAttandent.setBounds(0, 157, 193, 59);
 			btn_sidebar.add(lblCheckAttandent);
 			lblCheckAttandent.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCheckAttandent.setFont(new Font("Times New Roman", Font.BOLD, 22));
@@ -186,16 +169,18 @@ public class Home {
 			lblPermission.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					panel_message.setVisible(false);
-					panel_attendance.setVisible(false);
-					panel_permission.setVisible(true);
-					panel_promote.setVisible(false);
-					tittle.setText("Premission");
-					panel_showStaff.setVisible(false);
+					tittle.setText("Permission");
+					panel_main.removeAll();
+					panel_main.repaint();
+					panel_main.revalidate();
+					
+					panel_main.add(panel_permission);
+					panel_main.repaint();
+					panel_main.revalidate();
 					
 				}
 			});
-			lblPermission.setBounds(0, 154, 194, 59);
+			lblPermission.setBounds(0, 85, 193, 59);
 			btn_sidebar.add(lblPermission);
 			lblPermission.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPermission.setFont(new Font("Times New Roman", Font.BOLD, 22));
@@ -221,62 +206,87 @@ public class Home {
 		//End of Side-bar//////////////////////////////////
 			
 			
-		// Panel to Show all Employees
 		JLabel lblAllStaff = new JLabel("All Staff");
 		lblAllStaff.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				panel_message.setVisible(false);
-				panel_attendance.setVisible(false);
-				panel_permission.setVisible(false);
-				panel_promote.setVisible(false);
-				panel_showStaff.setVisible(true);
+				panel_main.removeAll();
+				panel_main.repaint();
+				panel_main.revalidate();
+				
+				panel_main.add(panel_showStaff);
+				panel_main.repaint();
+				panel_main.revalidate();
 				tittle.setText("All staff");
 			}
 		});
 		lblAllStaff.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAllStaff.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblAllStaff.setBounds(0, 13, 194, 59);
+		lblAllStaff.setBounds(0, 13, 193, 59);
 		btn_sidebar.add(lblAllStaff);
 		
-		panel_showStaff = new JPanel();
-		panel_showStaff.setBackground(SystemColor.inactiveCaption);
-		panel_showStaff.setBounds(196, 57, 977, 563);
-		frame.getContentPane().add(panel_showStaff);
-		panel_showStaff.setLayout(null);
+		//Panel main
+		panel_main = new JPanel();
+		panel_main.setBounds(194, 60, 979, 559);
+		frame.getContentPane().add(panel_main);
+		panel_main.setLayout(null);
+		//End of Show Staff///////////////////////////////
 		
-			//Table of all Employees
-			String[] column = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
-			model = new DefaultTableModel();
-			JScrollPane scrollPane = new JScrollPane();
-			model.setColumnIdentifiers(column); 
-			scrollPane.setBounds(12, 13, 953, 482);
-			panel_showStaff.add(scrollPane);
-			table_employees = new JTable(model);
-			fill_table();
-			table_employees.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					btnDelete.setEnabled(true);
-					btnEdit.setEnabled(true);
-					int row = table_employees.getSelectedRow();
-					int col = table_employees.getSelectedColumn();
-					
-					em.setID(Integer.parseInt(table_employees.getValueAt(row, 0).toString()));
-					em.setFirstname(table_employees.getValueAt(row, 1).toString());
-					em.setLastname(table_employees.getValueAt(row, 2).toString());
-					em.setEmail(table_employees.getValueAt(row, 3).toString());
-					em.setDob(table_employees.getValueAt(row, 4).toString());
-					em.setPhone(table_employees.getValueAt(row, 5).toString());
-					em.setPosition(table_employees.getValueAt(row, 6).toString());
-					em.setSalary(Double.parseDouble(table_employees.getValueAt(row, 7).toString()));
-					
-					//System.out.println(row + " " + col + " = " + table_employees.getValueAt(row, col));
-					//System.out.println(em.toString() + em.getID());
-					
-				}
-			});
-			scrollPane.setViewportView(table_employees);
+		// Panel to Show all Employees
+		
+				//Table of all Employees
+				String[] employee_columnName = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
+				model_employees = new DefaultTableModel();
+				model_employees.setColumnIdentifiers(employee_columnName); 
+				fill_table();
+				
+				//Panel Permission
+				panel_permission = new JPanel();
+				panel_permission.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_permission);
+				panel_permission.setBackground(SystemColor.inactiveCaption);
+				panel_permission.setLayout(null);
+				
+				//Table of Permission
+				String[] permission_ColumnName = {"id", "Type", "eID", "Reason", "Status", "ApplyDate", "Leaving Date"};
+				model_permission = new DefaultTableModel();
+				model_permission.setColumnIdentifiers(permission_ColumnName);
+				
+				scrollPane_permission_table = new JScrollPane();
+				scrollPane_permission_table.setBounds(12, 13, 953, 537);
+				panel_permission.add(scrollPane_permission_table);
+				table_permission = new JTable(model_permission);
+				scrollPane_permission_table.setViewportView(table_permission);
+				
+				panel_showStaff = new JPanel();
+				panel_showStaff.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_showStaff);
+				panel_showStaff.setBackground(SystemColor.inactiveCaption);
+				panel_showStaff.setLayout(null);
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(12, 13, 953, 482);
+				panel_showStaff.add(scrollPane);
+				table_employees = new JTable(model_employees);
+				table_employees.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						btnDelete.setEnabled(true);
+						btnEdit.setEnabled(true);
+						int row = table_employees.getSelectedRow();
+						
+						em.setID(Integer.parseInt(table_employees.getValueAt(row, 0).toString()));
+						em.setFirstname(table_employees.getValueAt(row, 1).toString());
+						em.setLastname(table_employees.getValueAt(row, 2).toString());
+						em.setEmail(table_employees.getValueAt(row, 3).toString());
+						em.setDob(table_employees.getValueAt(row, 4).toString());
+						em.setPhone(table_employees.getValueAt(row, 5).toString());
+						em.setPosition(table_employees.getValueAt(row, 6).toString());
+						em.setSalary(Double.parseDouble(table_employees.getValueAt(row, 7).toString()));
+						
+						
+					}
+				});
+				scrollPane.setViewportView(table_employees);
 				
 				//Delete
 				btnDelete = new JButton("Delete");
@@ -284,7 +294,7 @@ public class Home {
 					public void actionPerformed(ActionEvent e) {
 						JOptionPane.showMessageDialog(null, "DELETE");
 						EmployeeModel.delete(em.getID());
-						model.setRowCount(0);
+						model_employees.setRowCount(0);
 						fill_table();
 					}
 				});
@@ -315,71 +325,30 @@ public class Home {
 				textField.setBounds(12, 508, 324, 42);
 				panel_showStaff.add(textField);
 				textField.setColumns(10);
-			
-				btnSearch = new JButton("Search");
-				btnSearch.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-					}
-				});
-				btnSearch.setForeground(Color.WHITE);
-				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 15));
-				btnSearch.setBackground(new Color(128, 128, 128));
-				btnSearch.setBounds(348, 508, 137, 42);
-				panel_showStaff.add(btnSearch);
-		//End of Show Staff///////////////////////////////
 				
+					btnSearch = new JButton("Search");
+					btnSearch.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+						}
+					});
+					btnSearch.setForeground(Color.WHITE);
+					btnSearch.setFont(new Font("Tahoma", Font.BOLD, 15));
+					btnSearch.setBackground(new Color(128, 128, 128));
+					btnSearch.setBounds(348, 508, 137, 42);
+					panel_showStaff.add(btnSearch);
 				
-		//Panel Message
-		panel_message = new JPanel();
-		panel_message.setBackground(new Color(224, 255, 255));
-		panel_message.setBounds(194, 57, 979, 563);
-		frame.getContentPane().add(panel_message);
-		
-			JLabel lblMessagePage = new JLabel("Message page ");
-			lblMessagePage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblMessagePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-			lblMessagePage.setBounds(369, 175, 355, 76);
-			panel_message.add(lblMessagePage);
-		
-		//Panel Promote
-		panel_promote = new JPanel();
-		panel_promote.setBackground(new Color(224, 255, 255));
-		panel_promote.setBounds(194, 60, 979, 560);
-		frame.getContentPane().add(panel_promote);
-		panel_promote.setLayout(null);
-		
-			JLabel lblPromotePage = new JLabel("Promote page ");
-			lblPromotePage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPromotePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-			lblPromotePage.setBounds(369, 175, 355, 76);
-			panel_promote.add(lblPromotePage);
-		
-		//Panel Permission
-		panel_permission = new JPanel();
-		panel_permission.setBackground(new Color(224, 255, 255));
-		panel_permission.setBounds(194, 61, 979, 559);
-		frame.getContentPane().add(panel_permission);
-		panel_permission.setLayout(null);
-		
-			JLabel lblPermissionPage = new JLabel("Premission page ");
-			lblPermissionPage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPermissionPage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-			lblPermissionPage.setBounds(388, 5, 202, 33);
-			panel_permission.add(lblPermissionPage);
-		
-		//Panel Attendance
-		panel_attendance = new JPanel();
-		panel_attendance.setBackground(new Color(224, 255, 255));
-		panel_attendance.setBounds(194, 60, 979, 560);
-		frame.getContentPane().add(panel_attendance);
-		panel_message.setLayout(null);
-		panel_attendance.setLayout(null);
-		
-			JLabel lblAttendancePage = new JLabel("Attendance page ");
-			lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-			lblAttendancePage.setBounds(386, 5, 206, 33);
-			panel_attendance.add(lblAttendancePage);
+				//Panel Attendance
+				panel_attendance = new JPanel();
+				panel_attendance.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_attendance);
+				panel_attendance.setBackground(new Color(224, 255, 255));
+				panel_attendance.setLayout(null);
+				
+					JLabel lblAttendancePage = new JLabel("Attendance page ");
+					lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
+					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+					lblAttendancePage.setBounds(386, 5, 206, 33);
+					panel_attendance.add(lblAttendancePage);
 		
 		
 		
