@@ -131,6 +131,7 @@ public class AddEm {
 		frame.getContentPane().add(lblPosition);
 		
 		dateChooser_dob = new JDateChooser();
+		dateChooser_dob.setDateFormatString("yyyy-MM-dd");
 		dateChooser_dob.setBounds(229, 197, 279, 30);
 		frame.getContentPane().add(dateChooser_dob);
 		
@@ -164,9 +165,11 @@ public class AddEm {
 											comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
 				try {
 					if (EmployeeModel.create(em)) {
+						Home.model.setRowCount(0);
+						Home.fill_table();
 						frame.dispose();
-						ShowAllEmploye show = new ShowAllEmploye();
-						show.frame.setVisible(true);
+//						ShowAllEmploye show = new ShowAllEmploye();
+//						show.frame.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Error adding employee to database");
 					}

@@ -40,7 +40,7 @@ public class Home {
 	private JPanel panel_message;
 	private JPanel panel_attendance;
 	private JPanel panel_promote;
-	private JPanel panel_premission ;
+	private JPanel panel_permission ;
 	private JPanel panel_showStaff;
 	private JTable table_employees;
 	static DefaultTableModel model;
@@ -62,9 +62,6 @@ public class Home {
 	//variables
 	private Employees em = new Employees();
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,9 +75,6 @@ public class Home {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Home() {
 		initialize();
 	}
@@ -103,130 +97,138 @@ public class Home {
 		}
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1191, 667);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		//Navigation bar
 		JPanel bar = new JPanel();
 		bar.setBorder(new LineBorder(new Color(0, 0, 0)));
 		bar.setBackground(SystemColor.activeCaption);
 		bar.setBounds(0, 0, 1173, 59);
 		frame.getContentPane().add(bar);
 		bar.setLayout(null);
-		
-		tittle = new JLabel("Staff");
-		tittle.setHorizontalAlignment(SwingConstants.CENTER);
-		tittle.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		tittle.setBounds(511, 0, 286, 59);
-		bar.add(tittle);
-		
-		JLabel lblDate = new JLabel();
-		lblDate.setForeground(Color.BLUE);
-		long mill= System.currentTimeMillis();
-		lblDate.setText(new Date(mill).toString());
-		lblDate.setBounds(0, 3, 194, 58);
-		bar.add(lblDate);
-		lblDate.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLACK);
-		separator.setBounds(193, -4, 2, 65);
-		bar.add(separator);
-		separator.setOrientation(SwingConstants.VERTICAL);
-		
-		lblMessage = new JLabel("Message");
-		lblMessage.setBounds(1032, 0, 141, 59);
-		bar.add(lblMessage);
-		lblMessage.setBackground(new Color(0, 255, 255));
-		lblMessage.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				panel_message.setVisible(true);
-				panel_attendance.setVisible(false);
-				panel_premission.setVisible(false);
-				panel_promote.setVisible(false);
-				tittle.setText("Message");
-				panel_showStaff.setVisible(false);
 			
-			}
-		});
-		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMessage.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		
-		JPanel btn_content = new JPanel();
-		btn_content.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btn_content.setBackground(SystemColor.activeCaption);
-		btn_content.setBounds(0, 57, 195, 563);
-		frame.getContentPane().add(btn_content);
-		btn_content.setLayout(null);
-		
-		JLabel lblCheckAttandent = new JLabel("Attendance");
-		lblCheckAttandent.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_message.setVisible(false);
-				panel_attendance.setVisible(true);	
-				panel_premission.setVisible(false);
-				panel_promote.setVisible(false);
-				tittle.setText("Attandence");
-				panel_showStaff.setVisible(false);
-			}
-		});
-		lblCheckAttandent.setBounds(0, 85, 194, 59);
-		btn_content.add(lblCheckAttandent);
-		lblCheckAttandent.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCheckAttandent.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		
-		JLabel lblPremission = new JLabel("Premission");
-		lblPremission.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_message.setVisible(false);
-				panel_attendance.setVisible(false);
-				panel_premission.setVisible(true);
-				panel_promote.setVisible(false);
-				tittle.setText("Premission");
-				panel_showStaff.setVisible(false);
+			//Title
+			tittle = new JLabel("Staff");
+			tittle.setHorizontalAlignment(SwingConstants.CENTER);
+			tittle.setFont(new Font("Times New Roman", Font.BOLD, 24));
+			tittle.setBounds(511, 0, 286, 59);
+			bar.add(tittle);
+			
+			//Date
+			JLabel lblDate = new JLabel();
+			lblDate.setForeground(Color.BLUE);
+			long mill= System.currentTimeMillis();
+			lblDate.setText(new Date(mill).toString());
+			lblDate.setBounds(0, 3, 194, 58);
+			bar.add(lblDate);
+			lblDate.setFont(new Font("Times New Roman", Font.BOLD, 20));
+			lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			//Separator
+			JSeparator separator = new JSeparator();
+			separator.setForeground(Color.BLACK);
+			separator.setBounds(193, -4, 2, 65);
+			bar.add(separator);
+			separator.setOrientation(SwingConstants.VERTICAL);
+			
+			//Message button
+			lblMessage = new JLabel("Message");
+			lblMessage.setBounds(1032, 0, 141, 59);
+			bar.add(lblMessage);
+			lblMessage.setBackground(new Color(0, 255, 255));
+			lblMessage.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					panel_message.setVisible(true);
+					panel_attendance.setVisible(false);
+					panel_permission.setVisible(false);
+					panel_promote.setVisible(false);
+					tittle.setText("Message");
+					panel_showStaff.setVisible(false);
 				
-			}
-		});
-		lblPremission.setBounds(0, 154, 194, 59);
-		btn_content.add(lblPremission);
-		lblPremission.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPremission.setFont(new Font("Times New Roman", Font.BOLD, 22));
+				}
+			});
+			lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMessage.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		
-		JLabel lblPromote = new JLabel("Promote");
-		lblPromote.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_message.setVisible(false);
-				panel_attendance.setVisible(false);
-				panel_premission.setVisible(false);
-				panel_promote.setVisible(true);
-				panel_showStaff.setVisible(false);
-				tittle.setText("Promote page");
-			}
+		//Side-bar
+		JPanel btn_sidebar = new JPanel();
+		btn_sidebar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btn_sidebar.setBackground(SystemColor.activeCaption);
+		btn_sidebar.setBounds(0, 57, 195, 563);
+		frame.getContentPane().add(btn_sidebar);
+		btn_sidebar.setLayout(null);
+		
+			//Button attendance
+			JLabel lblCheckAttandent = new JLabel("Attendance");
+			lblCheckAttandent.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					panel_message.setVisible(false);
+					panel_attendance.setVisible(true);	
+					panel_permission.setVisible(false);
+					panel_promote.setVisible(false);
+					tittle.setText("Attandence");
+					panel_showStaff.setVisible(false);
+				}
+			});
+			lblCheckAttandent.setBounds(0, 85, 194, 59);
+			btn_sidebar.add(lblCheckAttandent);
+			lblCheckAttandent.setHorizontalAlignment(SwingConstants.CENTER);
+			lblCheckAttandent.setFont(new Font("Times New Roman", Font.BOLD, 22));
 			
-		});
-		lblPromote.setBounds(0, 226, 194, 59);
-		btn_content.add(lblPromote);
-		lblPromote.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPromote.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		
-
+			//Button permission
+			JLabel lblPermission = new JLabel("Permission");
+			lblPermission.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					panel_message.setVisible(false);
+					panel_attendance.setVisible(false);
+					panel_permission.setVisible(true);
+					panel_promote.setVisible(false);
+					tittle.setText("Premission");
+					panel_showStaff.setVisible(false);
+					
+				}
+			});
+			lblPermission.setBounds(0, 154, 194, 59);
+			btn_sidebar.add(lblPermission);
+			lblPermission.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPermission.setFont(new Font("Times New Roman", Font.BOLD, 22));
+			
+			//Button Add Employee
+			btnAdd = new JButton("Add Employee");
+			btnAdd.setBounds(32, 508, 137, 42);
+			btn_sidebar.add(btnAdd);
+			btnAdd.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						AddEm addEM = new AddEm();
+						addEM.frame.setVisible(true);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			btnAdd.setForeground(new Color(255, 255, 255));
+			btnAdd.setFont(new Font("Tahoma", Font.BOLD, 15));
+			btnAdd.setBackground(new Color(0, 0, 255));
+		//End of Side-bar//////////////////////////////////
+			
+			
+		// Panel to Show all Employees
 		JLabel lblAllStaff = new JLabel("All Staff");
 		lblAllStaff.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				panel_message.setVisible(false);
 				panel_attendance.setVisible(false);
-				panel_premission.setVisible(false);
+				panel_permission.setVisible(false);
 				panel_promote.setVisible(false);
 				panel_showStaff.setVisible(true);
 				tittle.setText("All staff");
@@ -235,28 +237,7 @@ public class Home {
 		lblAllStaff.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAllStaff.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblAllStaff.setBounds(0, 13, 194, 59);
-		btn_content.add(lblAllStaff);
-		
-		btnAdd = new JButton("Add Employe");
-		btnAdd.setBounds(32, 508, 137, 42);
-		btn_content.add(btnAdd);
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frame.setVisible(false);
-				try {
-					AddEm addEM = new AddEm();
-					addEM.frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-			
-		// All Employee
-		btnAdd.setForeground(new Color(255, 255, 255));
-		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnAdd.setBackground(new Color(0, 0, 255));
+		btn_sidebar.add(lblAllStaff);
 		
 		panel_showStaff = new JPanel();
 		panel_showStaff.setBackground(SystemColor.inactiveCaption);
@@ -290,12 +271,12 @@ public class Home {
 					em.setPosition(table_employees.getValueAt(row, 6).toString());
 					em.setSalary(Double.parseDouble(table_employees.getValueAt(row, 7).toString()));
 					
-					System.out.println(row + " " + col + " = " + table_employees.getValueAt(row, col));
-					System.out.println(em.toString() + em.getID());
+					//System.out.println(row + " " + col + " = " + table_employees.getValueAt(row, col));
+					//System.out.println(em.toString() + em.getID());
 					
 				}
 			});
-				scrollPane.setViewportView(table_employees);
+			scrollPane.setViewportView(table_employees);
 				
 				//Delete
 				btnDelete = new JButton("Delete");
@@ -345,44 +326,48 @@ public class Home {
 				btnSearch.setBackground(new Color(128, 128, 128));
 				btnSearch.setBounds(348, 508, 137, 42);
 				panel_showStaff.add(btnSearch);
-		
+		//End of Show Staff///////////////////////////////
+				
+				
+		//Panel Message
 		panel_message = new JPanel();
 		panel_message.setBackground(new Color(224, 255, 255));
 		panel_message.setBounds(194, 57, 979, 563);
 		frame.getContentPane().add(panel_message);
 		
-		// Message Page
-		JLabel lblMessagePage = new JLabel("Message page ");
-		lblMessagePage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMessagePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lblMessagePage.setBounds(369, 175, 355, 76);
-		panel_message.add(lblMessagePage);
+			JLabel lblMessagePage = new JLabel("Message page ");
+			lblMessagePage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMessagePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+			lblMessagePage.setBounds(369, 175, 355, 76);
+			panel_message.add(lblMessagePage);
 		
-		
+		//Panel Promote
 		panel_promote = new JPanel();
 		panel_promote.setBackground(new Color(224, 255, 255));
 		panel_promote.setBounds(194, 60, 979, 560);
 		frame.getContentPane().add(panel_promote);
 		panel_promote.setLayout(null);
 		
-		JLabel lblPromotePage = new JLabel("Promote page ");
-		lblPromotePage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPromotePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lblPromotePage.setBounds(369, 175, 355, 76);
-		panel_promote.add(lblPromotePage);
+			JLabel lblPromotePage = new JLabel("Promote page ");
+			lblPromotePage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPromotePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+			lblPromotePage.setBounds(369, 175, 355, 76);
+			panel_promote.add(lblPromotePage);
 		
-		panel_premission = new JPanel();
-		panel_premission.setBackground(new Color(224, 255, 255));
-		panel_premission.setBounds(194, 61, 979, 559);
-		frame.getContentPane().add(panel_premission);
-		panel_premission.setLayout(null);
+		//Panel Permission
+		panel_permission = new JPanel();
+		panel_permission.setBackground(new Color(224, 255, 255));
+		panel_permission.setBounds(194, 61, 979, 559);
+		frame.getContentPane().add(panel_permission);
+		panel_permission.setLayout(null);
 		
-		JLabel lblPremissionPage = new JLabel("Premission page ");
-		lblPremissionPage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPremissionPage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lblPremissionPage.setBounds(388, 5, 202, 33);
-		panel_premission.add(lblPremissionPage);
+			JLabel lblPermissionPage = new JLabel("Premission page ");
+			lblPermissionPage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPermissionPage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+			lblPermissionPage.setBounds(388, 5, 202, 33);
+			panel_permission.add(lblPermissionPage);
 		
+		//Panel Attendance
 		panel_attendance = new JPanel();
 		panel_attendance.setBackground(new Color(224, 255, 255));
 		panel_attendance.setBounds(194, 60, 979, 560);
@@ -390,11 +375,11 @@ public class Home {
 		panel_message.setLayout(null);
 		panel_attendance.setLayout(null);
 		
-		JLabel lblAttendancePage = new JLabel("Attendance page ");
-		lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lblAttendancePage.setBounds(386, 5, 206, 33);
-		panel_attendance.add(lblAttendancePage);
+			JLabel lblAttendancePage = new JLabel("Attendance page ");
+			lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+			lblAttendancePage.setBounds(386, 5, 206, 33);
+			panel_attendance.add(lblAttendancePage);
 		
 		
 		
