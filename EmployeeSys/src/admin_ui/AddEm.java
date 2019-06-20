@@ -165,23 +165,33 @@ public class AddEm {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 //				frame.dispose();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				String date = sdf.format(dateChooser_dob.getDate());
-				Employees em = new Employees(textField_firstName.getText(), textField_lastName.getText(), textField_email.getText(), date, textField_phone.getText(),
-											comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
-				try {
-					if (EmployeeModel.create(em)) {
-						frame.dispose();
-						ShowAllEmploye show = new ShowAllEmploye();
-						show.frame.setVisible(true);
-					} else {
-						JOptionPane.showMessageDialog(null, "Error adding employee to database");
-					}
+				if (textField_firstName.getText().equals("")||textField_lastName.getText().equals("")||textField_phone.getText().equals("")||comboBox_position.getSelectedItem().toString().equals("")
+						||textField_salary.getText().equals("")) {
+					int input = JOptionPane.showConfirmDialog(null, "Missing something", "Missing",
+							JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+				   	if(input==2) {
+				   		frame.dispose();
+				   		Home home= new Home();
+				   		home.frame.setVisible(true);	   		
+				  }   
+				}else {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String date = sdf.format(dateChooser_dob.getDate());
+					Employees em = new Employees(textField_firstName.getText(), textField_lastName.getText(), textField_email.getText(), date, textField_phone.getText(),
+												comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
+					try {
+						if (EmployeeModel.create(em)) {
+							frame.dispose();
+							ShowAllEmploye show = new ShowAllEmploye();
+							show.frame.setVisible(true);
+						} else {
+							JOptionPane.showMessageDialog(null, "Error adding employee to database");
+						}
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}	
 			}
 		});
 		btnCreate.setFont(new Font("Times New Roman", Font.BOLD, 20));

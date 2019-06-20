@@ -242,25 +242,16 @@ public class Home {
 		frame.getContentPane().add(panel_showStaff);
 		panel_showStaff.setLayout(null);
 		
-		
-		//All Staff
-		JLabel label = new JLabel("All Staff");
-		label.setBounds(450, 13, 79, 27);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		panel_showStaff.add(label);
-		
 			String[] column = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
 			DefaultTableModel model = new DefaultTableModel();
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 59, 953, 491);
+			scrollPane.setBounds(12, 13, 953, 537);
 			panel_showStaff.add(scrollPane);
 			table_employees = new JTable(model);
 			scrollPane.setViewportView(table_employees);
 			for (int i=0; i<8; i++) {
 				model.addColumn(column[i]);
 			}
-			
 			show_all_employee();
 		
 			
