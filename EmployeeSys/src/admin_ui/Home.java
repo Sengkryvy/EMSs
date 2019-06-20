@@ -281,15 +281,15 @@ public class Home {
 			for (int i=0; i<8; i++) {
 				model.addColumn(column[i]);
 			}
-			show_all_employee();
-		
-			
-		// Add Employee
-		btnAddEmployee.setForeground(new Color(255, 255, 255));
-		btnAddEmployee.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnAddEmployee.setBackground(new Color(0, 0, 255));
-		btnAddEmployee.setBounds(28, 497, 137, 42);
-		btn_content.add(btnAddEmployee);
+//			show_all_employee();
+//		
+//			
+//		// Add Employee
+//		btnAddEmployee.setForeground(new Color(255, 255, 255));
+//		btnAddEmployee.setFont(new Font("Tahoma", Font.BOLD, 15));
+//		btnAddEmployee.setBackground(new Color(0, 0, 255));
+//		btnAddEmployee.setBounds(28, 497, 137, 42);
+//		btn_content.add(btnAddEmployee);
 
 			fill_table();
 			table_employees.addMouseListener(new MouseAdapter() {
@@ -299,6 +299,9 @@ public class Home {
 					btnEdit.setEnabled(true);
 					int row = table_employees.getSelectedRow();
 					int col = table_employees.getSelectedColumn();
+					
+					btnDelete.setVisible(true);
+					btnEdit.setVisible(true);
 					
 					em.setID(Integer.parseInt(table_employees.getValueAt(row, 0).toString()));
 					em.setFirstname(table_employees.getValueAt(row, 1).toString());
@@ -317,7 +320,9 @@ public class Home {
 				scrollPane.setViewportView(table_employees);
 				
 				//Delete
+				
 				btnDelete = new JButton("Delete");
+				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						JOptionPane.showMessageDialog(null, "DELETE");
@@ -333,6 +338,7 @@ public class Home {
 				panel_showStaff.add(btnDelete);
 				btnDelete.setEnabled(false);
 				
+				
 				//Edit
 				btnEdit = new JButton("Edit");
 				btnEdit.addActionListener(new ActionListener() {
@@ -347,6 +353,7 @@ public class Home {
 				btnEdit.setBounds(666, 508, 137, 42);
 				panel_showStaff.add(btnEdit);
 				btnEdit.setEnabled(false);
+				btnEdit.setVisible(false);
 				
 				//Search
 				textField = new JTextField();
@@ -364,7 +371,7 @@ public class Home {
 				btnSearch.setBackground(new Color(128, 128, 128));
 				btnSearch.setBounds(348, 508, 137, 42);
 				panel_showStaff.add(btnSearch);
->>>>>>> branch 'master' of https://github.com/Sengkryvy/EMSs.git
+
 		
 		panel_message = new JPanel();
 		panel_message.setBackground(new Color(224, 255, 255));
