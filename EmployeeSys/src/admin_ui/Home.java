@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import javax.swing.JPanel;
+import javax.swing.JPanel;	
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
@@ -257,26 +257,6 @@ public class Home {
 				model_employees.setColumnIdentifiers(employee_columnName); 
 				fill_tableEmployee();
 				
-				//Panel Permission
-				panel_permission = new JPanel();
-				panel_permission.setBounds(1, -2, 977, 563);
-				panel_main.add(panel_permission);
-				panel_permission.setBackground(SystemColor.inactiveCaption);
-				panel_permission.setLayout(null);
-				
-				//Table of Permission
-				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
-				model_permission = new DefaultTableModel();
-				model_permission.setColumnIdentifiers(permission_ColumnName);
-				fill_tablePermission();
-	
-				
-				scrollPane_permission_table = new JScrollPane();
-				scrollPane_permission_table.setBounds(12, 13, 953, 537);
-				panel_permission.add(scrollPane_permission_table);
-				table_permission = new JTable(model_permission);
-				scrollPane_permission_table.setViewportView(table_permission);
-				
 				panel_showStaff = new JPanel();
 				panel_showStaff.setBounds(1, -2, 977, 563);
 				panel_main.add(panel_showStaff);
@@ -308,7 +288,9 @@ public class Home {
 				scrollPane.setViewportView(table_employees);
 				
 				//Delete
+				
 				btnDelete = new JButton("Delete");
+				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						JOptionPane.showMessageDialog(null, "DELETE");
@@ -324,6 +306,7 @@ public class Home {
 				panel_showStaff.add(btnDelete);
 				btnDelete.setEnabled(false);
 				
+				
 				//Edit
 				btnEdit = new JButton("Edit");
 				btnEdit.addActionListener(new ActionListener() {
@@ -338,6 +321,7 @@ public class Home {
 				btnEdit.setBounds(666, 508, 137, 42);
 				panel_showStaff.add(btnEdit);
 				btnEdit.setEnabled(false);
+				btnEdit.setVisible(false);
 				
 				//Search
 				textField = new JTextField();
@@ -368,6 +352,27 @@ public class Home {
 					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
 					lblAttendancePage.setBounds(386, 5, 206, 33);
 					panel_attendance.add(lblAttendancePage);
+				
+				//Panel Permission
+				panel_permission = new JPanel();
+				panel_permission.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_permission);
+				panel_permission.setBackground(SystemColor.inactiveCaption);
+				panel_permission.setLayout(null);
+				
+				//Table of Permission
+				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
+				model_permission = new DefaultTableModel();
+				model_permission.setColumnIdentifiers(permission_ColumnName);
+				fill_tablePermission();
+				
+				scrollPane_permission_table = new JScrollPane();
+				scrollPane_permission_table.setBounds(12, 13, 953, 537);
+				panel_permission.add(scrollPane_permission_table);
+				table_permission = new JTable(model_permission);
+				scrollPane_permission_table.setViewportView(table_permission);
+				
+		
 		
 		
 	}
