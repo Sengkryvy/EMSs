@@ -8,8 +8,13 @@ import model.EmployeeModel;
 public class Main {
 	
 	public static void main(String[] args) {
+<<<<<<< HEAD
 //		EmployeeModel employeeModel = new EmployeeModel();
 //		Employees em = new Employees();
+=======
+		EmployeeModel employeeModel = new EmployeeModel();
+		Employees em = new Employees();
+>>>>>>> 645b43dd09ff55383d16819eb7da55461d5026d4
 //		em = employeeModel.find(4);
 //		System.out.println(em.toString());
 		
@@ -19,7 +24,7 @@ public class Main {
 //		employeeModel.create(em);
 		
 //		Employees em = new Employees("CHH", "Bunnarong aka kak", "kak@gmail.com", "1999-08-22", "011440811", "Employee", 0.01);
-//		em.setID(4);
+		em.setID(4);
 //		employeeModel.edit(em);
 		
 //		employeeModel.delete(10);

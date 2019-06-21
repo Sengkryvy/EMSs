@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import javax.swing.JPanel;
+import javax.swing.JPanel;	
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
@@ -256,6 +256,7 @@ public class Home {
 				String[] employee_columnName = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
 				model_employees = new DefaultTableModel();
 				model_employees.setColumnIdentifiers(employee_columnName); 
+				
 				fill_tableEmployee(EmployeeModel.all());
 				
 				panel_showStaff = new JPanel();
@@ -289,7 +290,9 @@ public class Home {
 				scrollPane.setViewportView(table_employees);
 				
 				//Delete
+				
 				btnDelete = new JButton("Delete");
+//				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
@@ -313,6 +316,7 @@ public class Home {
 				panel_showStaff.add(btnDelete);
 				btnDelete.setEnabled(false);
 				
+				
 				//Edit
 				btnEdit = new JButton("Edit");
 				btnEdit.addActionListener(new ActionListener() {
@@ -327,6 +331,7 @@ public class Home {
 				btnEdit.setBounds(666, 508, 137, 42);
 				panel_showStaff.add(btnEdit);
 				btnEdit.setEnabled(false);
+//				btnEdit.setVisible(false);
 				
 				//Search
 				textField_search = new JTextField();
@@ -337,17 +342,17 @@ public class Home {
 					btnSearch = new JButton("Search");
 					btnSearch.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							if (textField_search.getText().length() != 0) {
-								ArrayList<Employees> list = new ArrayList<>();
-								list = EmployeeModel.search(textField_search.getText());
-								model_employees.setRowCount(0);
-								fill_tableEmployee(list);
-								for (int i=0; i<list.size(); i++) {
-									System.out.println(list.get(i).toString());
-								}
-							} else {
-								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
-							}
+//							if (textField_search.getText().length() != 0) {
+//								ArrayList<Employees> list = new ArrayList<>();
+//								list = EmployeeModel.search(textField_search.getText());
+//								model_employees.setRowCount(0);
+//								fill_tableEmployee(list);
+//								for (int i=0; i<list.size(); i++) {
+//									System.out.println(list.get(i).toString());
+//								}
+//							} else {
+//								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
+//							}
 						}
 					});
 					btnSearch.setForeground(Color.WHITE);
@@ -388,6 +393,21 @@ public class Home {
 					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
 					lblAttendancePage.setBounds(386, 5, 206, 33);
 					panel_attendance.add(lblAttendancePage);
+				
+				//Panel Permission
+				panel_permission = new JPanel();
+				panel_permission.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_permission);
+				panel_permission.setBackground(SystemColor.inactiveCaption);
+				panel_permission.setLayout(null);
+				
+				scrollPane_permission_table = new JScrollPane();
+				scrollPane_permission_table.setBounds(12, 13, 953, 537);
+				panel_permission.add(scrollPane_permission_table);
+				table_permission = new JTable(model_permission);
+				scrollPane_permission_table.setViewportView(table_permission);
+				
+		
 		
 		
 	}
