@@ -257,25 +257,19 @@ public class Home {
 				model_employees.setColumnIdentifiers(employee_columnName); 
 				fill_tableEmployee();
 				
-				//Panel Attendance
-				panel_attendance = new JPanel();
-				panel_attendance.setBounds(1, -2, 977, 563);
-				panel_main.add(panel_attendance);
-				panel_attendance.setBackground(new Color(224, 255, 255));
-				panel_attendance.setLayout(null);
-				
-					JLabel lblAttendancePage = new JLabel("Attendance page ");
-					lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
-					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-					lblAttendancePage.setBounds(386, 5, 206, 33);
-					panel_attendance.add(lblAttendancePage);
-				
 				//Panel Permission
 				panel_permission = new JPanel();
 				panel_permission.setBounds(1, -2, 977, 563);
 				panel_main.add(panel_permission);
 				panel_permission.setBackground(SystemColor.inactiveCaption);
 				panel_permission.setLayout(null);
+				
+				//Table of Permission
+				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
+				model_permission = new DefaultTableModel();
+				model_permission.setColumnIdentifiers(permission_ColumnName);
+				fill_tablePermission();
+	
 				
 				scrollPane_permission_table = new JScrollPane();
 				scrollPane_permission_table.setBounds(12, 13, 953, 537);
@@ -362,12 +356,18 @@ public class Home {
 					btnSearch.setBounds(348, 508, 137, 42);
 					panel_showStaff.add(btnSearch);
 				
-				//Table of Permission
-				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
-				model_permission = new DefaultTableModel();
-				model_permission.setColumnIdentifiers(permission_ColumnName);
-				fill_tablePermission();
-		
+				//Panel Attendance
+				panel_attendance = new JPanel();
+				panel_attendance.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_attendance);
+				panel_attendance.setBackground(new Color(224, 255, 255));
+				panel_attendance.setLayout(null);
+				
+					JLabel lblAttendancePage = new JLabel("Attendance page ");
+					lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
+					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+					lblAttendancePage.setBounds(386, 5, 206, 33);
+					panel_attendance.add(lblAttendancePage);
 		
 		
 	}
