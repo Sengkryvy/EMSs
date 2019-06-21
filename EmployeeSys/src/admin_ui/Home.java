@@ -277,10 +277,10 @@ public class Home {
 			panel_showStaff.add(scrollPane);
 			table_employees = new JTable(model);
 
-			scrollPane.setViewportView(table_employees);
-			for (int i=0; i<8; i++) {
-				model.addColumn(column[i]);
-			}
+//			scrollPane.setViewportView(table_employees);
+//			for (int i=0; i<8; i++) {
+//				model.addColumn(column[i]);
+//			}
 //			show_all_employee();
 //		
 //			
@@ -320,15 +320,18 @@ public class Home {
 				scrollPane.setViewportView(table_employees);
 				
 				//Delete
-				
 				btnDelete = new JButton("Delete");
 				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, "DELETE");
-						EmployeeModel.delete(em.getID());
-						model.setRowCount(0);
-						fill_table();
+						int input = JOptionPane.showConfirmDialog(null, "Really want to delete it", "Delete?",
+								JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+						System.out.println(input);
+					   	if(input==0) {				   			   
+					   		EmployeeModel.delete(em.getID());
+							model.setRowCount(0);
+							fill_table();
+					   	}
 					}
 				});
 				btnDelete.setForeground(Color.WHITE);

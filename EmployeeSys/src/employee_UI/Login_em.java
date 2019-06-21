@@ -4,18 +4,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import admin_ui.Home;
+import database.AccountConnection;
+import model.EmployeeModel;
+
 import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login_em {
 
 	private JFrame frame;
 	private JTextField txtUsername;
-	private JTextField textField;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -80,13 +90,35 @@ public class Login_em {
 		lblPassword.setBounds(68, 159, 102, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(174, 158, 281, 29);
-		frame.getContentPane().add(textField);
-		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String username= txtUsername.getText();
+				String paString= passwordField.getText();
+				frame.dispose();
+				try {
+					System.out.println(paString);
+					EmployeeModel model=new EmployeeModel();
+					if(	model.login(username, paString)) {
+						Home window = new Home();
+						window.frame.setVisible(true);
+					}else {
+				   		frame.setVisible(true);
+						int input = JOptionPane.showConfirmDialog(null, "Something Error!! ", "Error Aler",
+							JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+							System.out.println(input);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		btnLogin.setBounds(245, 252, 142, 29);
 		frame.getContentPane().add(btnLogin);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(174, 149, 281, 26);
+		frame.getContentPane().add(passwordField);
 	}
 }

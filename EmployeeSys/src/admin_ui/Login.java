@@ -121,7 +121,6 @@ public class Login {
 			public void actionPerformed(ActionEvent arg0) {
 				String username= username_field.getText();
 				String paString= passwordField.getText();
-//				JOptionPane.showMessageDialog(null, "OK");
 				frame.dispose();
 				try {
 					System.out.println(paString);

@@ -22,7 +22,6 @@ public class AccountConnection {
 		try {
 			System.out.println("Before");
 			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
-			System.out.println("After");
 			mystatement=myconnection.createStatement();
 			rs=mystatement.executeQuery("select * from account"); 
 			while (rs.next()) {			

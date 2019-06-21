@@ -175,8 +175,11 @@ public class AddEm {
 					try {
 						if (EmployeeModel.create(em)) {
 							frame.dispose();
-							ShowAllEmploye show = new ShowAllEmploye();
-							show.frame.setVisible(true);
+//							ShowAllEmploye show = new ShowAllEmploye();
+//							show.frame.setVisible(true);
+							
+							Home home= new Home();
+					   		home.frame.setVisible(true);	
 						} else {
 							JOptionPane.showMessageDialog(null, "Error adding employee to database");
 						}

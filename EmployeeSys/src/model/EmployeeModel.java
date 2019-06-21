@@ -35,7 +35,6 @@ public class EmployeeModel {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	public static Employees find(int id) {
@@ -116,6 +115,31 @@ public class EmployeeModel {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public static boolean login( String username, String password) {
+		try {
+			String sql = "select * from employees";
+			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+			String	user=rs.getString("first_name").concat(rs.getString("last_name"));
+				if(username.equals(user)){
+					if (password.equals(user)) {
+						return true;
+					}else {
+						System.out.println("Password not match");
+					}
+				}else {
+					System.out.println("Account not found");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return false;
 	}
 
 }
