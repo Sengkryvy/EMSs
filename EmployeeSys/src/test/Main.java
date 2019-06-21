@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		EmployeeModel employeeModel = new EmployeeModel();
-//		Employees em = new Employees();
+		Employees em = new Employees();
 //		em = employeeModel.find(4);
 //		System.out.println(em.toString());
 		
@@ -18,7 +18,7 @@ public class Main {
 //		employeeModel.create(em);
 		
 //		Employees em = new Employees("CHH", "Bunnarong aka kak", "kak@gmail.com", "1999-08-22", "011440811", "Employee", 0.01);
-//		em.setID(4);
+		em.setID(4);
 //		employeeModel.edit(em);
 		
 		employeeModel.delete(10);

@@ -290,13 +290,20 @@ public class Home {
 				//Delete
 				
 				btnDelete = new JButton("Delete");
-				btnDelete.setVisible(false);
+//				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, "DELETE");
-						EmployeeModel.delete(em.getID());
-						model_employees.setRowCount(0);
-						fill_tableEmployee();
+						int input = JOptionPane.showConfirmDialog(null, "Do you want to delete this employee?", "Cancel",
+								JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+					   	if(input==0) {
+							if(EmployeeModel.delete(em.getID())) {
+								System.out.println("Delete");
+							} else {
+								System.out.println("Error Deleting Employee.");
+							}
+							model_employees.setRowCount(0);
+							fill_tableEmployee();
+					  }   
 					}
 				});
 				btnDelete.setForeground(Color.WHITE);
@@ -321,7 +328,7 @@ public class Home {
 				btnEdit.setBounds(666, 508, 137, 42);
 				panel_showStaff.add(btnEdit);
 				btnEdit.setEnabled(false);
-				btnEdit.setVisible(false);
+//				btnEdit.setVisible(false);
 				
 				//Search
 				textField = new JTextField();
