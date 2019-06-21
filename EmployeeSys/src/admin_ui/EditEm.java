@@ -174,9 +174,11 @@ public class EditEm {
 		textField_salary.setBounds(229, 368, 279, 31);
 		frame.getContentPane().add(textField_salary);
 		
-		JButton btnCreate = new JButton("Update");
-		btnCreate.setBackground(new Color(255, 140, 0));
-		btnCreate.addActionListener(new ActionListener() {
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnUpdate.setForeground(Color.WHITE);
+		btnUpdate.setBackground(new Color(255, 140, 0));
+		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 //				frame.dispose();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -188,8 +190,8 @@ public class EditEm {
 					System.out.println(em_updated.toString());
 					System.out.println(em_updated.getID());
 					if (EmployeeModel.edit(em_updated)) {
-						Home.model.setRowCount(0);
-						Home.fill_table();
+						Home.model_employees.setRowCount(0);
+						Home.fill_tableEmployee();
 						frame.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Error updating employee.");
@@ -201,9 +203,9 @@ public class EditEm {
 				
 			}
 		});
-		btnCreate.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnCreate.setBounds(291, 441, 114, 45);
-		frame.getContentPane().add(btnCreate);
+		btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnUpdate.setBounds(291, 441, 114, 45);
+		frame.getContentPane().add(btnUpdate);
 		
 		lblCancel = new JLabel("cancel");
 		lblCancel.addMouseListener(new MouseAdapter() {
@@ -213,8 +215,8 @@ public class EditEm {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 			   	if(input==0) {
 			   		frame.dispose();
-			   		Home home= new Home();
-			   		home.frame.setVisible(true);
+//			   		Home home= new Home();
+//			   		home.frame.setVisible(true);
 			  }   
 			}
 		});

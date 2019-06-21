@@ -20,26 +20,16 @@ public class AccountConnection {
 	 
 	public boolean login ( String user , String pass ) {
 		try {
-			 myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
-			 mystatement=myconnection.createStatement();
-			 rs=mystatement.executeQuery("select * from account"); 
+			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
+			mystatement=myconnection.createStatement();
+			rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
 			while (rs.next()) {			
-				if(user.equals(rs.getString("username")) ) {
-					if(pass.equals(rs.getString("password")) ) {
-						if(admin.equals(rs.getString("type"))) {
-							return true;
-						}
-					}else {
-						System.out.println("Password not match!!!");  
-					}
-				}else {
-					System.out.println("no account found!!");
-					}
-				}
+				return true;
+			}
 			myconnection.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
+			return false;
 		}
 	return false;
 	}
