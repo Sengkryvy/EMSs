@@ -20,9 +20,9 @@ public class AccountConnection {
 	 
 	public boolean login ( String user , String pass ) {
 		try {
-			 myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
-			 mystatement=myconnection.createStatement();
-			 rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
+			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
+			mystatement=myconnection.createStatement();
+			rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
 			while (rs.next()) {			
 				return true;
 			}

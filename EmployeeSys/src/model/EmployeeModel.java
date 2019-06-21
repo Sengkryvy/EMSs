@@ -66,7 +66,7 @@ public class EmployeeModel {
 	public static boolean create(Employees em) {
 		try {
 			
-			String sql = "insert into employees values(NULL, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into employees (first_name, last_name, email, dob, phone, position, salary) values(?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
 			ps.setString(1, em.getFirstname());
 			ps.setString(2, em.getLastname());
