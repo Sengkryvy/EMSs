@@ -236,6 +236,8 @@ public class Home {
 				panel_main.repaint();
 				panel_main.revalidate();
 				tittle.setText("All staff");
+				model_employees.setRowCount(0);
+				fill_tableEmployee(EmployeeModel.all());
 			}
 		});
 		lblAllStaff.setHorizontalAlignment(SwingConstants.CENTER);
@@ -361,7 +363,7 @@ public class Home {
 					btnSearch.setBounds(348, 508, 137, 42);
 					panel_showStaff.add(btnSearch);
 				
-				//Panel Permission
+				//Panel Permi	ssion
 				panel_permission = new JPanel();
 				panel_permission.setBounds(1, -2, 977, 563);
 				panel_main.add(panel_permission);
