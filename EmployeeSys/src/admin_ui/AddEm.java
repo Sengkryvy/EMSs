@@ -166,7 +166,7 @@ public class AddEm {
 				try {
 					if (EmployeeModel.create(em)) {
 						Home.model_employees.setRowCount(0);
-						Home.fill_table();
+						Home.fill_tableEmployee();
 						frame.dispose();
 //						ShowAllEmploye show = new ShowAllEmploye();
 //						show.frame.setVisible(true);

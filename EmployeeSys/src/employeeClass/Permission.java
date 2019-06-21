@@ -7,6 +7,11 @@ public class Permission {
 	private String applyDate;
 	private String leavingDate;
 	private String reason;
+	private String status;
+	
+	public Permission() {
+		
+	}
 	
 	public Permission(int eID, String type, String applyDate, String leavingDate, String reason) {
 		super();
@@ -15,6 +20,26 @@ public class Permission {
 		this.applyDate = applyDate;
 		this.leavingDate = leavingDate;
 		this.reason = reason;
+	}
+	
+	public Permission(int eID, String type, String applyDate, String leavingDate, String reason, String status) {
+		super();
+		this.eID = eID;
+		this.type = type;
+		this.applyDate = applyDate;
+		this.leavingDate = leavingDate;
+		this.reason = reason;
+		this.status = status;
+	}
+
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getId() {
