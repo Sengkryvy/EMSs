@@ -312,10 +312,18 @@ public class Home {
 				btnDelete = new JButton("Delete");
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, "DELETE");
-						EmployeeModel.delete(em.getID());
-						model_employees.setRowCount(0);
-						fill_tableEmployee();
+						int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
+								JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+					  if(input==0) {
+						  if(EmployeeModel.delete(em.getID())) {
+								model_employees.setRowCount(0);
+								fill_tableEmployee();
+						  } else {
+							  JOptionPane.showMessageDialog(null, "Error deleting Employee Make Sure This employee do not has any Permission record");
+						  }
+
+					  }   
+
 					}
 				});
 				btnDelete.setForeground(Color.WHITE);
