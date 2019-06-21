@@ -191,7 +191,7 @@ public class EditEm {
 					System.out.println(em_updated.getID());
 					if (EmployeeModel.edit(em_updated)) {
 						Home.model_employees.setRowCount(0);
-						Home.fill_tableEmployee();
+						Home.fill_tableEmployee(EmployeeModel.all());
 						frame.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Error updating employee.");

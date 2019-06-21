@@ -43,9 +43,10 @@ public class Home {
 	private JTable table_employees;
 	static DefaultTableModel model_employees;
 	static DefaultTableModel model_permission;
+//	EmployeeModel employeeModel = new EmployeeModel();
 	
 	//textField
-	private JTextField textField;
+	private JTextField textField_search;
 	
 	//label
 	private JLabel tittle;
@@ -80,8 +81,8 @@ public class Home {
 		initialize();
 	}
 	
-	public static void fill_tableEmployee() {
-		ArrayList<Employees> list = EmployeeModel.all();
+	public static void fill_tableEmployee(ArrayList<Employees> list) {
+//		ArrayList<Employees> list = EmployeeModel.all();
 		//DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
 		Object[] row = new Object[8];
 		//String[] row = new String[8];
@@ -255,7 +256,8 @@ public class Home {
 				String[] employee_columnName = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
 				model_employees = new DefaultTableModel();
 				model_employees.setColumnIdentifiers(employee_columnName); 
-				fill_tableEmployee();
+				
+				fill_tableEmployee(EmployeeModel.all());
 				
 				panel_showStaff = new JPanel();
 				panel_showStaff.setBounds(1, -2, 977, 563);
@@ -293,17 +295,18 @@ public class Home {
 //				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int input = JOptionPane.showConfirmDialog(null, "Do you want to delete this employee?", "Cancel",
+						int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-					   	if(input==0) {
-							if(EmployeeModel.delete(em.getID())) {
-								System.out.println("Delete");
-							} else {
-								System.out.println("Error Deleting Employee.");
-							}
-							model_employees.setRowCount(0);
-							fill_tableEmployee();
+					  if(input==0) {
+						  if(EmployeeModel.delete(em.getID())) {
+								model_employees.setRowCount(0);
+								fill_tableEmployee(EmployeeModel.all());
+						  } else {
+							  JOptionPane.showMessageDialog(null, "Error deleting Employee Make Sure This employee do not has any Permission record");
+						  }
+
 					  }   
+
 					}
 				});
 				btnDelete.setForeground(Color.WHITE);
@@ -331,14 +334,25 @@ public class Home {
 //				btnEdit.setVisible(false);
 				
 				//Search
-				textField = new JTextField();
-				textField.setBounds(12, 508, 324, 42);
-				panel_showStaff.add(textField);
-				textField.setColumns(10);
+				textField_search = new JTextField();
+				textField_search.setBounds(12, 508, 324, 42);
+				panel_showStaff.add(textField_search);
+				textField_search.setColumns(10);
 				
 					btnSearch = new JButton("Search");
 					btnSearch.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							if (textField_search.getText().length() != 0) {
+								ArrayList<Employees> list = new ArrayList<>();
+								list = EmployeeModel.search(textField_search.getText());
+								model_employees.setRowCount(0);
+								fill_tableEmployee(list);
+								for (int i=0; i<list.size(); i++) {
+									System.out.println(list.get(i).toString());
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
+							}
 						}
 					});
 					btnSearch.setForeground(Color.WHITE);
@@ -346,6 +360,26 @@ public class Home {
 					btnSearch.setBackground(new Color(128, 128, 128));
 					btnSearch.setBounds(348, 508, 137, 42);
 					panel_showStaff.add(btnSearch);
+				
+				//Panel Permission
+				panel_permission = new JPanel();
+				panel_permission.setBounds(1, -2, 977, 563);
+				panel_main.add(panel_permission);
+				panel_permission.setBackground(SystemColor.inactiveCaption);
+				panel_permission.setLayout(null);
+				
+				//Table of Permission
+				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
+				model_permission = new DefaultTableModel();
+				model_permission.setColumnIdentifiers(permission_ColumnName);
+				fill_tablePermission();
+	
+				
+				scrollPane_permission_table = new JScrollPane();
+				scrollPane_permission_table.setBounds(12, 13, 953, 537);
+				panel_permission.add(scrollPane_permission_table);
+				table_permission = new JTable(model_permission);
+				scrollPane_permission_table.setViewportView(table_permission);
 				
 				//Panel Attendance
 				panel_attendance = new JPanel();
@@ -366,12 +400,6 @@ public class Home {
 				panel_main.add(panel_permission);
 				panel_permission.setBackground(SystemColor.inactiveCaption);
 				panel_permission.setLayout(null);
-				
-				//Table of Permission
-				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
-				model_permission = new DefaultTableModel();
-				model_permission.setColumnIdentifiers(permission_ColumnName);
-				fill_tablePermission();
 				
 				scrollPane_permission_table = new JScrollPane();
 				scrollPane_permission_table.setBounds(12, 13, 953, 537);

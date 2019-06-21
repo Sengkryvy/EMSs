@@ -159,6 +159,7 @@ public class AddEm {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 //				frame.dispose();
+
 				if (textField_firstName.getText().equals("")||textField_lastName.getText().equals("")||textField_phone.getText().equals("")||comboBox_position.getSelectedItem().toString().equals("")
 						||textField_salary.getText().equals("")) {
 					int input = JOptionPane.showConfirmDialog(null, "Missing something", "Missing",
