@@ -342,17 +342,17 @@ public class Home {
 					btnSearch = new JButton("Search");
 					btnSearch.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-//							if (textField_search.getText().length() != 0) {
-//								ArrayList<Employees> list = new ArrayList<>();
-//								list = EmployeeModel.search(textField_search.getText());
-//								model_employees.setRowCount(0);
-//								fill_tableEmployee(list);
-//								for (int i=0; i<list.size(); i++) {
-//									System.out.println(list.get(i).toString());
-//								}
-//							} else {
-//								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
-//							}
+							if (textField_search.getText().length() != 0) {
+								ArrayList<Employees> list = new ArrayList<>();
+								list = EmployeeModel.search(textField_search.getText());
+								model_employees.setRowCount(0);
+								fill_tableEmployee(list);
+								for (int i=0; i<list.size(); i++) {
+									System.out.println(list.get(i).toString());
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
+							}
 						}
 					});
 					btnSearch.setForeground(Color.WHITE);
