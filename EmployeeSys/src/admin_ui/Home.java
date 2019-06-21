@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import employeeClass.Employees;
 import employeeClass.Permission;
+import model.EmployeeModel;
 import model.PermissionModel;
 
 import javax.swing.JTable;
@@ -42,6 +43,7 @@ public class Home {
 	private JTable table_employees;
 	static DefaultTableModel model_employees;
 	static DefaultTableModel model_permission;
+//	EmployeeModel employeeModel = new EmployeeModel();
 	
 	//textField
 	private JTextField textField;
