@@ -23,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 
 import employeeClass.Employees;
 import employeeClass.Permission;
-import model.EmployeeModel;
 import model.PermissionModel;
 
 import javax.swing.JTable;
