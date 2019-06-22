@@ -4,18 +4,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login_em {
 
 	private JFrame frame;
-	private JTextField txtUsername;
-	private JTextField textField;
+	private JTextField textField_username;
+	private JPasswordField passwordField_password;
 
 	/**
 	 * Launch the application.
@@ -65,28 +70,34 @@ public class Login_em {
 		lblUsername.setFont(new Font("Times New Roman", Font.BOLD, 19));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsername.setForeground(new Color(0, 0, 0));
-		lblUsername.setBounds(68, 111, 102, 16);
+		lblUsername.setBounds(68, 116, 102, 16);
 		frame.getContentPane().add(lblUsername);
 		
-		txtUsername = new JTextField();
-		txtUsername.setBounds(174, 107, 281, 29);
-		frame.getContentPane().add(txtUsername);
-		txtUsername.setColumns(10);
+		textField_username = new JTextField();
+		textField_username.setBounds(174, 107, 281, 38);
+		frame.getContentPane().add(textField_username);
+		textField_username.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password :");
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassword.setForeground(Color.BLACK);
 		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		lblPassword.setBounds(68, 159, 102, 16);
+		lblPassword.setBounds(68, 166, 102, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(174, 158, 281, 29);
-		frame.getContentPane().add(textField);
-		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_username.getText();
+				passwordField_password.getText();
+				JOptionPane.showMessageDialog(null, textField_username.getText() + " " + passwordField_password.getText());
+			}
+		});
 		btnLogin.setBounds(245, 252, 142, 29);
 		frame.getContentPane().add(btnLogin);
+		
+		passwordField_password = new JPasswordField();
+		passwordField_password.setBounds(174, 158, 281, 36);
+		frame.getContentPane().add(passwordField_password);
 	}
 }

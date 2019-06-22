@@ -23,7 +23,13 @@ public class AccountConnection {
 			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
 			mystatement=myconnection.createStatement();
 			rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
+			while (rs.next()) {	
+				System.out.println("admin");
+				return true;
+			}
+			rs=mystatement.executeQuery("select * from employees where last_name='" + user + "' and password='"  + pass + "'"); 
 			while (rs.next()) {			
+				System.out.println("emoloyeees");
 				return true;
 			}
 			myconnection.close();
