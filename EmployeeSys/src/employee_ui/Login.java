@@ -21,6 +21,7 @@ import admin_ui.Home;
 //import com.luv2code.jdbc.employeesearch.ui.EmployeeSearchApp;
 
 import database.AccountConnection;
+import employeeClass.Employees;
 
 import javax.swing.JPasswordField;
 import javax.swing.JEditorPane;
@@ -115,7 +116,7 @@ public class Login {
 							JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				   	if(input==0) {
 				   		frame.dispose();
-				  }   
+				  }   	
 			}
 		});
 		
@@ -123,18 +124,20 @@ public class Login {
 			public void actionPerformed(ActionEvent arg0) {
 				String username= username_field.getText();
 				String paString= passwordField.getText();
-				frame.dispose();
 				try {
-					System.out.println(paString);
-					AccountConnection connect= new AccountConnection();
-					if(	connect.login(username, paString)) {
-//						Home window = new Home();
-//						window.frame.setVisible(true);
-					}else {
-				   		frame.setVisible(true);
-						int input = JOptionPane.showConfirmDialog(null, "Something Error!! ", "Error Aler",
-							JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
-							System.out.println(input);
+					Employees em;
+					if(	AccountConnection.login(username, paString)) {
+						Home window = new Home();
+						window.frame.setVisible(true);
+						frame.dispose();
+					} else if ((em = AccountConnection.Emp_login(username, paString)) != null) {
+						System.out.println(em.toString());
+						Home_Emp window = new Home_Emp(em);
+						window.frame.setVisible(true);
+						frame.dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Username and password do not matche");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
