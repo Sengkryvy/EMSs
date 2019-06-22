@@ -37,6 +37,35 @@ public class EmployeeModel {
 		}
 	}
 	
+	public static ArrayList<Employees> search(String name) {
+		
+		try {
+			ArrayList<Employees> list = new ArrayList<>();
+			String sql = "select * from employees where last_name like '%" + name + "%' or first_name like '%" + name + "%'";
+			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Employees e = new Employees();
+				e.setFirstname(rs.getString("first_name"));
+				e.setLastname(rs.getString("last_name"));
+				e.setEmail(rs.getString("email"));
+				e.setDob(rs.getString("dob"));
+				e.setID(rs.getInt("eID"));
+				e.setPhone(rs.getString("phone"));
+				e.setPosition(rs.getString("position"));
+				e.setSalary(rs.getDouble("salary"));
+				list.add(e);
+			}
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	public static Employees find(int id) {
 		Employees em = new Employees();
 		try {
@@ -65,7 +94,7 @@ public class EmployeeModel {
 	public static boolean create(Employees em) {
 		try {
 			
-			String sql = "insert into employees values(NULL, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into employees (first_name, last_name, email, dob, phone, position, salary) values(?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
 			ps.setString(1, em.getFirstname());
 			ps.setString(2, em.getLastname());
@@ -96,7 +125,6 @@ public class EmployeeModel {
 			ps.setString(6, em.getPosition());
 			ps.setDouble(7, em.getSalary());
 			ps.setInt(8, em.getID());
-			
 			return ps.executeUpdate() > 0;
 			
 		} catch (Exception e) {

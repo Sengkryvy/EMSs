@@ -9,8 +9,17 @@ public class Employees {
 	private String phone;
 	private String position;
 	private double salary;
+	private String password;
 	
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Employees() {
 		
 	}
