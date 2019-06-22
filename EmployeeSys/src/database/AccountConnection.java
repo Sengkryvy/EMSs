@@ -1,14 +1,11 @@
 package database;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
-import admin_ui.Home;
+import employeeClass.Employees;
 
 public class AccountConnection {
 	
@@ -16,31 +13,45 @@ public class AccountConnection {
 	static Connection myconnection;
 	static	Statement mystatement;
 	static ResultSet rs;
-	 String admin="admin";
 	 
-	public boolean login ( String user , String pass ) {
+	public static boolean login ( String user , String pass ) {
 		try {
-			 myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
-			 mystatement=myconnection.createStatement();
-			 rs=mystatement.executeQuery("select * from account"); 
-			while (rs.next()) {			
-				if(user.equals(rs.getString("username")) ) {
-					if(pass.equals(rs.getString("password")) ) {
-						if(admin.equals(rs.getString("type"))) {
-							return true;
-						}
-					}else {
-						System.out.println("Password not match!!!");  
-					}
-				}else {
-					System.out.println("no account found!!");
-					}
-				}
+			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
+			mystatement=myconnection.createStatement();
+			rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
+			while (rs.next()) {	
+				return true;
+			}
 			myconnection.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
+			return false;
 		}
 	return false;
+	}
+	public static Employees Emp_login ( String user , String pass ) {
+		try {
+			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
+			mystatement=myconnection.createStatement();
+			rs=mystatement.executeQuery("select * from employees where last_name='" + user + "' and password='"  + pass + "'"); 
+			while (rs.next()) {	
+				System.out.println("Employees");
+				Employees em = new Employees();
+				em.setFirstname(rs.getString("first_name"));
+				em.setLastname(rs.getString("last_name"));
+				em.setEmail(rs.getString("email"));
+				em.setDob(rs.getString("dob"));
+				em.setID(rs.getInt("eID"));
+				em.setPhone(rs.getString("phone"));
+				em.setPosition(rs.getString("position"));
+				em.setSalary(rs.getDouble("salary"));
+				return em;
+			}
+			myconnection.close();
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	return null;
 	}
 }

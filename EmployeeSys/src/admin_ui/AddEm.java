@@ -96,6 +96,11 @@ public class AddEm {
 		lblFullName.setBounds(38, 155, 178, 27);
 		frame.getContentPane().add(lblFullName);
 		
+		textField_email = new JTextField();
+		textField_email.setColumns(10);
+		textField_email.setBounds(229, 236, 279, 31);
+		frame.getContentPane().add(textField_email);
+		
 		lblBirthOfDate = new JLabel("Date of Birth :");
 		lblBirthOfDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBirthOfDate.setFont(new Font("Times New Roman", Font.BOLD, 22));
@@ -107,11 +112,6 @@ public class AddEm {
 		lblEmail.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblEmail.setBounds(71, 240, 146, 27);
 		frame.getContentPane().add(lblEmail);
-		
-		textField_email = new JTextField();
-		textField_email.setColumns(10);
-		textField_email.setBounds(229, 236, 279, 31);
-		frame.getContentPane().add(textField_email);
 		
 		JLabel lblPhone = new JLabel("Phone :");
 		lblPhone.setHorizontalAlignment(SwingConstants.CENTER);
@@ -131,6 +131,7 @@ public class AddEm {
 		frame.getContentPane().add(lblPosition);
 		
 		dateChooser_dob = new JDateChooser();
+		dateChooser_dob.setDateFormatString("yyyy-MM-dd");
 		dateChooser_dob.setBounds(229, 197, 279, 30);
 		frame.getContentPane().add(dateChooser_dob);
 		
@@ -158,15 +159,17 @@ public class AddEm {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 //				frame.dispose();
+
 				if (textField_firstName.getText().equals("")||textField_lastName.getText().equals("")||textField_phone.getText().equals("")||comboBox_position.getSelectedItem().toString().equals("")
 						||textField_salary.getText().equals("")) {
-					int input = JOptionPane.showConfirmDialog(null, "Missing something", "Missing",
-							JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-				   	if(input==2) {
-				   		frame.dispose();
-				   		Home home= new Home();
-				   		home.frame.setVisible(true);	   		
-				  }   
+//					int input = JOptionPane.showConfirmDialog(null, "Missing something", "Missing", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+//				   	if(input==2) {
+//				   		frame.dispose();
+//				   		Home home= new Home();
+//				   		home.frame.setVisible(true);
+//				  } 
+					JOptionPane.showMessageDialog(null, "Please fill all informations.");
+					
 				}else {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date = sdf.format(dateChooser_dob.getDate());
@@ -174,9 +177,12 @@ public class AddEm {
 												comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
 					try {
 						if (EmployeeModel.create(em)) {
-							frame.dispose();
-							ShowAllEmploye show = new ShowAllEmploye();
-							show.frame.setVisible(true);
+//							frame.dispose();
+//							ShowAllEmploye show = new ShowAllEmploye();
+//							show.frame.setVisible(true);
+							Home.model_employees.setRowCount(0);
+							Home.fill_tableEmployee(EmployeeModel.all());
+//							frame.dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "Error adding employee to database");
 						}
