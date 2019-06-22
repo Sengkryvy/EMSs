@@ -1,4 +1,3 @@
-/admin_ui/
-/database/
-/employeeClass/
-/DB/
+/employee_UI/
+/model/
+/test/
