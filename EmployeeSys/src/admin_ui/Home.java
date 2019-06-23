@@ -21,6 +21,8 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.xml.internal.ws.assembler.dev.ServerTubelineAssemblyContext;
+
 import employeeClass.Employees;
 import employeeClass.Permission;
 import model.EmployeeModel;
@@ -55,13 +57,16 @@ public class Home {
 	private JButton btnDelete;
 	private JButton btnSearch;
 	private JButton btnAdd;
-	
+	private JButton btnAccept;
+	private JButton btnReject;
+	private JButton btnDelete_Permission;
 	
 	//variables
 	private Employees em = new Employees();
 	private JPanel panel_main;
 	private JTable table_permission;
 	private JScrollPane scrollPane_permission_table;
+
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -166,6 +171,9 @@ public class Home {
 			lblCheckAttandent.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+//					btnAccept.setEnabled(false);
+//					btnReject.setEnabled(false);
+//					btnDelete.setEnabled(false);
 					tittle.setText("Attandence");
 					panel_main.removeAll();
 					panel_main.repaint();
@@ -226,6 +234,9 @@ public class Home {
 		lblAllStaff.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+//				btnAccept.setEnabled(false);
+//				btnReject.setEnabled(false);
+//				btnDelete.setEnabled(false);
 				panel_main.removeAll();
 				panel_main.repaint();
 				panel_main.revalidate();
@@ -360,50 +371,109 @@ public class Home {
 					btnSearch.setBounds(348, 508, 137, 42);
 					panel_showStaff.add(btnSearch);
 				
-				//Panel Permission
-				panel_permission = new JPanel();
-				panel_permission.setBounds(1, -2, 977, 563);
-				panel_main.add(panel_permission);
-				panel_permission.setBackground(SystemColor.inactiveCaption);
-				panel_permission.setLayout(null);
-				
 				//Table of Permission
 				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
 				model_permission = new DefaultTableModel();
 				model_permission.setColumnIdentifiers(permission_ColumnName);
 				fill_tablePermission();
-				
-				scrollPane_permission_table = new JScrollPane();
-				scrollPane_permission_table.setBounds(12, 13, 953, 537);
-				panel_permission.add(scrollPane_permission_table);
-				table_permission = new JTable(model_permission);
-				scrollPane_permission_table.setViewportView(table_permission);
-				
-				//Panel Attendance
-				panel_attendance = new JPanel();
-				panel_attendance.setBounds(1, -2, 977, 563);
-				panel_main.add(panel_attendance);
-				panel_attendance.setBackground(new Color(224, 255, 255));
-				panel_attendance.setLayout(null);
-				
-					JLabel lblAttendancePage = new JLabel("Attendance page ");
-					lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
-					lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-					lblAttendancePage.setBounds(386, 5, 206, 33);
-					panel_attendance.add(lblAttendancePage);
-				
-				//Panel Permission
-				panel_permission = new JPanel();
-				panel_permission.setBounds(1, -2, 977, 563);
-				panel_main.add(panel_permission);
-				panel_permission.setBackground(SystemColor.inactiveCaption);
-				panel_permission.setLayout(null);
-				
-				scrollPane_permission_table = new JScrollPane();
-				scrollPane_permission_table.setBounds(12, 13, 953, 537);
-				panel_permission.add(scrollPane_permission_table);
-				table_permission = new JTable(model_permission);
-				scrollPane_permission_table.setViewportView(table_permission);
+					
+					//Panel Permission
+					panel_permission = new JPanel();
+					panel_permission.setBounds(1, -2, 977, 563);
+					panel_main.add(panel_permission);
+					panel_permission.setBackground(SystemColor.inactiveCaption);
+					panel_permission.setLayout(null);
+					
+					scrollPane_permission_table = new JScrollPane();
+					scrollPane_permission_table.setBounds(12, 13, 953, 478);
+					panel_permission.add(scrollPane_permission_table);
+					table_permission = new JTable(model_permission);
+					table_permission.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							btnDelete_Permission.setEnabled(true);
+							btnReject.setEnabled(true);
+							btnAccept.setEnabled(true);
+						}
+					});
+					scrollPane_permission_table.setViewportView(table_permission);
+					
+					btnAccept = new JButton("Accept");
+					btnAccept.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int row = table_permission.getSelectedRow();
+							int id = (int) table_permission.getValueAt(row, 0);
+							if (PermissionModel.accept(id)) {
+								JOptionPane.showMessageDialog(null, "Request Accepted.");
+								model_permission.setRowCount(0);
+								fill_tablePermission();
+							} else {
+								JOptionPane.showMessageDialog(null, "Error accepting permission request.");
+							}
+						}
+					});
+					btnAccept.setEnabled(false);
+					btnAccept.setForeground(Color.WHITE);
+					btnAccept.setFont(new Font("Tahoma", Font.BOLD, 15));
+					btnAccept.setBackground(new Color(0, 128, 0));
+					btnAccept.setBounds(828, 508, 137, 42);
+					panel_permission.add(btnAccept);
+					
+					btnReject = new JButton("Reject");
+					btnReject.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int row = table_permission.getSelectedRow();
+							int id = (int) table_permission.getValueAt(row, 0);
+							if (PermissionModel.reject(id)) {
+								JOptionPane.showMessageDialog(null, "Request Rejected.");
+								model_permission.setRowCount(0);
+								fill_tablePermission();
+							} else {
+								JOptionPane.showMessageDialog(null, "Error rejecting permission request.");
+							}
+						}
+					});
+					btnReject.setEnabled(false);
+					btnReject.setForeground(Color.WHITE);
+					btnReject.setFont(new Font("Tahoma", Font.BOLD, 15));
+					btnReject.setBackground(new Color(255, 160, 122));
+					btnReject.setBounds(679, 508, 137, 42);
+					panel_permission.add(btnReject);
+					
+					btnDelete_Permission = new JButton("Delete");
+					btnDelete_Permission.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int row = table_permission.getSelectedRow();	
+							int id = (int) table_permission.getValueAt(row, 0);
+							System.out.println(id);
+							if (PermissionModel.delete(id)) {
+								JOptionPane.showMessageDialog(null, "Request deleted.");
+								model_permission.setRowCount(0);
+								fill_tablePermission();
+							} else {
+								JOptionPane.showMessageDialog(null, "Error deleting permission request.");
+							}
+						}
+					});
+					btnDelete_Permission.setEnabled(false);
+					btnDelete_Permission.setForeground(Color.WHITE);
+					btnDelete_Permission.setFont(new Font("Tahoma", Font.BOLD, 15));
+					btnDelete_Permission.setBackground(new Color(165, 42, 42));
+					btnDelete_Permission.setBounds(12, 508, 137, 42);
+					panel_permission.add(btnDelete_Permission);
+					
+					//Panel Attendance
+					panel_attendance = new JPanel();
+					panel_attendance.setBounds(1, -2, 977, 563);
+					panel_main.add(panel_attendance);
+					panel_attendance.setBackground(new Color(224, 255, 255));
+					panel_attendance.setLayout(null);
+					
+						JLabel lblAttendancePage = new JLabel("Attendance page ");
+						lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
+						lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+						lblAttendancePage.setBounds(386, 5, 206, 33);
+						panel_attendance.add(lblAttendancePage);
 				
 		
 		
