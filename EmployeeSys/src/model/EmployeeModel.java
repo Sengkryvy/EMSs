@@ -145,6 +145,20 @@ public class EmployeeModel {
 			return false;
 		}
 	}
+	
+	public static boolean update_Password(String newPassword, int id) {
+		try {
+			String sql = "update employees set password=? where eID=?";
+			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
+			ps.setString(1, newPassword);
+			ps.setInt(2, id);
+			return ps.executeUpdate() > 0;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
 
