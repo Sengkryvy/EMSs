@@ -27,7 +27,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JEditorPane;
 
 public class Login {
-
 	private JFrame frame;
 	private JTextField username_field;
 	private JPasswordField passwordField;

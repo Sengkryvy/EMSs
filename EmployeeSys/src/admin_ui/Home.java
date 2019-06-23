@@ -43,7 +43,6 @@ public class Home {
 	private JTable table_employees;
 	static DefaultTableModel model_employees;
 	static DefaultTableModel model_permission;
-//	EmployeeModel employeeModel = new EmployeeModel();
 	
 	//textField
 	private JTextField textField_search;
@@ -223,7 +222,6 @@ public class Home {
 			btnAdd.setBackground(new Color(0, 0, 255));
 		//End of Side-bar//////////////////////////////////
 			
-			
 		JLabel lblAllStaff = new JLabel("All Staff");
 		lblAllStaff.addMouseListener(new MouseAdapter() {
 			@Override
@@ -253,7 +251,6 @@ public class Home {
 		//End of Show Staff///////////////////////////////
 		
 		// Panel to Show all Employees
-		
 				//Table of all Employees
 				String[] employee_columnName = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
 				model_employees = new DefaultTableModel();
@@ -363,7 +360,7 @@ public class Home {
 					btnSearch.setBounds(348, 508, 137, 42);
 					panel_showStaff.add(btnSearch);
 				
-				//Panel Permi	ssion
+				//Panel Permission
 				panel_permission = new JPanel();
 				panel_permission.setBounds(1, -2, 977, 563);
 				panel_main.add(panel_permission);
@@ -375,7 +372,6 @@ public class Home {
 				model_permission = new DefaultTableModel();
 				model_permission.setColumnIdentifiers(permission_ColumnName);
 				fill_tablePermission();
-	
 				
 				scrollPane_permission_table = new JScrollPane();
 				scrollPane_permission_table.setBounds(12, 13, 953, 537);
