@@ -145,29 +145,18 @@ public class EmployeeModel {
 		}
 	}
 	
-	public static boolean login( String username, String password) {
+	public static boolean update_Password(String newPassword, int id) {
 		try {
-			String sql = "select * from employees";
+			String sql = "update employees set password=? where eID=?";
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			ps.setString(1, newPassword);
+			ps.setInt(2, id);
+			return ps.executeUpdate() > 0;
 			
-			while(rs.next()) {
-			String	user=rs.getString("first_name").concat(rs.getString("last_name"));
-				if(username.equals(user)){
-					if (password.equals(user)) {
-						return true;
-					}else {
-						System.out.println("Password not match");
-					}
-				}else {
-					System.out.println("Account not found");
-				}
-			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		}
-		
-		return false;
 	}
 
 }

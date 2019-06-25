@@ -27,7 +27,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JEditorPane;
 
 public class Login {
-
 	private JFrame frame;
 	private JTextField username_field;
 	private JPasswordField passwordField;
@@ -132,12 +131,13 @@ public class Login {
 						frame.dispose();
 					} else if ((em = AccountConnection.Emp_login(username, paString)) != null) {
 						System.out.println(em.toString());
+						em.setPassword(paString);
 						Home_Emp window = new Home_Emp(em);
 						window.frame.setVisible(true);
 						frame.dispose();
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Username and password do not matche");
+						JOptionPane.showMessageDialog(null, "Username and password do not match.");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

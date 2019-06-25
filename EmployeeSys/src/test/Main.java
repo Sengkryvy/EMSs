@@ -3,7 +3,9 @@ package test;
 import java.util.ArrayList;
 
 import employeeClass.Employees;
+import employeeClass.Permission;
 import model.EmployeeModel;
+import model.PermissionModel;
 
 public class Main {
 	
@@ -26,8 +28,15 @@ public class Main {
 //		employeeModel.delete(10);
 		
 		
-		ArrayList<Employees> list = new ArrayList<>();
-		list = EmployeeModel.search("Bunna");
+//		ArrayList<Employees> list = new ArrayList<>();
+//		list = EmployeeModel.search("Bunna");
+//		for (int i=0; i<list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
+		
+		ArrayList<Permission> list = new ArrayList<>();
+//		list = EmployeeModel.search("Bunna");
+		list = PermissionModel.all(18);
 		for (int i=0; i<list.size(); i++) {
 			System.out.println(list.get(i).toString());
 		}

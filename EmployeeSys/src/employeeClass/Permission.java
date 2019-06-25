@@ -34,6 +34,12 @@ public class Permission {
 
 	
 	
+	@Override
+	public String toString() {
+		return "Permission [id=" + id + ", eID=" + eID + ", type=" + type + ", applyDate=" + applyDate
+				+ ", leavingDate=" + leavingDate + ", reason=" + reason + ", status=" + status + "]";
+	}
+
 	public String getStatus() {
 		return status;
 	}
