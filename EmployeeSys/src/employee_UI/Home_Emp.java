@@ -1,4 +1,4 @@
-package employee_ui;
+package employee_UI;
 
 import java.awt.EventQueue;
 
