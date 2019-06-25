@@ -379,6 +379,7 @@ public class Home_Emp {
 			btnChangePassword.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Change_pw_emp change_pw_emp = new Change_pw_emp(em);
+					frame.dispose();
 					change_pw_emp.frame.setVisible(true);
 				}
 			});
