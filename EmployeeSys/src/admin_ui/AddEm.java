@@ -182,7 +182,7 @@ public class AddEm {
 //							show.frame.setVisible(true);
 							Home.model_employees.setRowCount(0);
 							Home.fill_tableEmployee(EmployeeModel.all());
-//							frame.dispose();
+							frame.dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "Error adding employee to database");
 						}
