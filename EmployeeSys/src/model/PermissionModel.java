@@ -74,15 +74,20 @@ public class PermissionModel {
 	}
 	
 	public static boolean edit(Permission p) {
-		String sql = "update permisson set type=?, leavingDate=?, reason=? where id=?";
+		String sql = "update permission set type=?, leavingDate=?, reason=? where id=?";
 		try {
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
+			
 			ps.setString(1, p.getType());
 			ps.setString(2, p.getLeavingDate());
 			ps.setString(3, p.getReason());
 			ps.setInt(4, p.getId());
-			return ps.executeUpdate() > 0;
-		} catch (Exception e) {
+			ps.executeUpdate();
+			//System.out.println("hello");
+	       return  ps.executeUpdate()>0;
+	       
+	
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}

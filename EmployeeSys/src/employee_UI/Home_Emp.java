@@ -1,4 +1,4 @@
-package employee_ui;
+package employee_UI;
 
 import java.awt.EventQueue;
 
@@ -52,7 +52,6 @@ public class Home_Emp {
 	private JTextField textField_phone;
 	private JDateChooser dateChooser_dob;
 	private JButton btnUpdate;
-	int id;
 
 	
 	//label
@@ -73,6 +72,7 @@ public class Home_Emp {
 	private JButton btnCreatePermission;
 	private JButton btnDelete;
 	private JButton btnEdit_Permission;
+	private Permission p = new Permission();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -95,6 +95,7 @@ public class Home_Emp {
 		this.em = em;
 		initialize();
 	}
+	
 	
 	public static void fill_tablePermission(int id) {
 		ArrayList<Permission> list = PermissionModel.all(id);
@@ -380,6 +381,7 @@ public class Home_Emp {
 			btnChangePassword.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Change_pw_emp change_pw_emp = new Change_pw_emp(em);
+					frame.dispose();
 					change_pw_emp.frame.setVisible(true);
 				}
 			});
@@ -416,16 +418,23 @@ public class Home_Emp {
 						public void mouseClicked(MouseEvent e) {
 //							int col = table_permission.getSelectedColumn();
 							int row = table_permission.getSelectedRow();
+							
 							if (e.getClickCount() == 2) {
 								System.out.println("Double clicked");
 							}
 							if (table_permission.getValueAt(row, 5).equals("Not Respond")) {
 								btnEdit_Permission.setEnabled(true);
 								btnDelete.setEnabled(true);
+																
+								p.setId(Integer.parseInt(table_permission.getValueAt(row ,0).toString()));
+								//p.seteID(Integer.parseInt( table_permission.getValueAt(row, 1).toString()));
+								p.setType(table_permission.getValueAt(row, 1).toString());
+								p.setApplyDate(table_permission.getValueAt(row, 2).toString());
+								p.setLeavingDate(table_permission.getValueAt(row, 3).toString());
+								p.setReason(table_permission.getValueAt(row, 4).toString());
+								p.seteID(em.getID());
+							//	p.seteID(eID);
 							}
-							id = (int) table_permission.getValueAt(row, 0);
-
-							
 						}
 					});
 					scrollPane_permission_table.setViewportView(table_permission);
@@ -444,23 +453,6 @@ public class Home_Emp {
 					panel_permission.add(btnCreatePermission);
 					//DeletePermission
 					btnDelete = new JButton("Delete");
-					btnDelete.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
-									JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-							if(input==0) {
-								if(PermissionModel.delete(id)) {
-									model_permission.setRowCount(0);
-									fill_tablePermission(id);
-									JOptionPane.showMessageDialog(null, "Deleted.");
-								} else {
-								  JOptionPane.showMessageDialog(null, "Error deleting Permission!");
-								}
-
-							} ;
-							
-						}
-					});
 					btnDelete.setForeground(Color.WHITE);
 					btnDelete.setFont(new Font("Tahoma", Font.BOLD, 15));
 					btnDelete.setBackground(new Color(178, 34, 34));
@@ -470,6 +462,9 @@ public class Home_Emp {
 					btnEdit_Permission = new JButton("Edit");
 					btnEdit_Permission.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							Edit_permission edit=new Edit_permission(p);
+							edit.frame.setVisible(true);
+							//frame.dispose();
 						}
 					});
 					btnEdit_Permission.setForeground(Color.WHITE);
@@ -492,6 +487,12 @@ public class Home_Emp {
 						panel_main.add(panel_attendance);
 						panel_attendance.setBackground(new Color(224, 255, 255));
 						panel_attendance.setLayout(null);
+						
+							JLabel lblAttendancePage = new JLabel("Attendance page ");
+							lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
+							lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
+							lblAttendancePage.setBounds(386, 5, 206, 33);
+							panel_attendance.add(lblAttendancePage);
 					panel_main.repaint();
 					panel_main.revalidate();
 					lblTitle.setText("Profile");

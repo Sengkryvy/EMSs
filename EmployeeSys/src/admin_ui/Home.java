@@ -300,7 +300,6 @@ public class Home {
 				scrollPane.setViewportView(table_employees);
 				
 				//Delete
-				
 				btnDelete = new JButton("Delete");
 //				btnDelete.setVisible(false);
 				btnDelete.addActionListener(new ActionListener() {

@@ -35,7 +35,6 @@ public class EmployeeModel {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	public static ArrayList<Employees> search(String name) {

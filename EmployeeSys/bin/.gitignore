@@ -1,14 +1,12 @@
-
-/database/
-/employee_ui/
+/employee_UI/
 /admin_ui/
 /employeeClass/
 /model/
+
 /test/
-<<<<<<< HEAD
+
 /DB/
 /database/
-=======
-
->>>>>>> branch 'master' of https://github.com/Sengkryvy/EMSs.git
 /employee_UI/
+
+

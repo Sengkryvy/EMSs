@@ -11,11 +11,12 @@ public class AccountConnection {
 	
 	public AccountConnection() {}
 	static Connection myconnection;
-	static	Statement mystatement;
+	static Statement mystatement;
 	static ResultSet rs;
 	 
 	public static boolean login ( String user , String pass ) {
 		try {
+
 			myconnection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "" );	
 			mystatement=myconnection.createStatement();
 			rs=mystatement.executeQuery("select * from admin where username='" + user + "' and password='"  + pass + "'"); 
