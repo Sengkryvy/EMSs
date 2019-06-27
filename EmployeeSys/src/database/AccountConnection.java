@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import employeeClass.Employees;
+import classes.Employees;
 
 public class AccountConnection {
 	
@@ -35,7 +35,6 @@ public class AccountConnection {
 			mystatement=myconnection.createStatement();
 			rs=mystatement.executeQuery("select * from employees where email='" + user + "' and password='"  + pass + "'"); 
 			while (rs.next()) {	
-				System.out.println("Employees");
 				Employees em = new Employees();
 				em.setFirstname(rs.getString("first_name"));
 				em.setLastname(rs.getString("last_name"));

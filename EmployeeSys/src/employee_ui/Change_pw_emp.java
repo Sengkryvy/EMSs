@@ -10,8 +10,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import classes.Employees;
 import database.ConnectDB;
-import employeeClass.Employees;
 import model.EmployeeModel;
 
 import java.awt.SystemColor;
@@ -109,12 +109,10 @@ public class Change_pw_emp {
 		JButton btnNewButton = new JButton("Confirm Change");
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setBackground(new Color(34, 139, 34));
+		btnNewButton.setBackground(new Color(0, 128, 0));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				System.out.println(em.getPassword());
-//				System.out.println(textField_currentPassword.getText());
 				
 				//Test whether current password field is correct.
 				if (textField_currentPassword.getText().equals(em.getPassword())) {
@@ -140,7 +138,7 @@ public class Change_pw_emp {
 				
 			}
 		});
-		btnNewButton.setBounds(187, 270, 184, 39);
+		btnNewButton.setBounds(267, 275, 184, 39);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnBack = new JButton("Back");
@@ -151,8 +149,8 @@ public class Change_pw_emp {
 		});
 		btnBack.setForeground(Color.WHITE);
 		btnBack.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnBack.setBackground(Color.GRAY);
-		btnBack.setBounds(12, 32, 105, 39);
+		btnBack.setBackground(new Color(139, 0, 0));
+		btnBack.setBounds(128, 275, 105, 39);
 		frame.getContentPane().add(btnBack);
 	}
 }

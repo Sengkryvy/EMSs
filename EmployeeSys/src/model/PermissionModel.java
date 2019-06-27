@@ -2,11 +2,12 @@ package model;
 
 import java.util.*;
 
+import classes.Permission;
+
 import java.sql.*;
 
 
 import database.ConnectDB;
-import employeeClass.Permission;
 
 public class PermissionModel {
 	
@@ -19,7 +20,7 @@ public class PermissionModel {
 			
 			while(rs.next()) {
 				Permission permission = new Permission(rs.getInt("eID"), rs.getString("type"),
-						rs.getString("applyDate"), rs.getString("leavingDate"), rs.getString("reason"));
+						rs.getString("applyDate"), rs.getString("leavingDate"), rs.getString("toDate"), rs.getString("reason"));
 				permission.setId(rs.getInt("id"));
 				permission.setStatus(rs.getString("status"));
 				list.add(permission);
@@ -42,7 +43,7 @@ public class PermissionModel {
 			
 			while(rs.next()) {
 				Permission permission = new Permission(rs.getInt("eID"), rs.getString("type"),
-						rs.getString("applyDate"), rs.getString("leavingDate"), rs.getString("reason"));
+						rs.getString("applyDate"), rs.getString("leavingDate"), rs.getString("toDate"), rs.getString("reason"));
 				permission.setId(rs.getInt("id"));
 				permission.setStatus(rs.getString("status"));
 				list.add(permission);
@@ -57,13 +58,14 @@ public class PermissionModel {
 	}
 	
 	public static boolean create(Permission p) {
-		String sql = "insert into permission (eID, type, leavingDate, reason) values (?, ?, ?, ?)";
+		String sql = "insert into permission (eID, type, leavingDate, toDate, reason) values (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
 			ps.setInt(1, p.geteID());
 			ps.setString(2, p.getType());
 			ps.setString(3, p.getLeavingDate());
-			ps.setString(4, p.getReason());
+			ps.setString(4, p.getToDate());
+			ps.setString(5, p.getReason());
 			
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
@@ -73,13 +75,14 @@ public class PermissionModel {
 	}
 	
 	public static boolean edit(Permission p) {
-		String sql = "update permisson set type=?, leavingDate=?, reason=? where id=?";
+		String sql = "update permission set type=?, leavingDate=?, toDate=?, reason=? where id=?";
 		try {
 			PreparedStatement ps = ConnectDB.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getType());
 			ps.setString(2, p.getLeavingDate());
-			ps.setString(3, p.getReason());
-			ps.setInt(4, p.getId());
+			ps.setString(3, p.getToDate());
+			ps.setString(4, p.getReason());
+			ps.setInt(5, p.getId());
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();

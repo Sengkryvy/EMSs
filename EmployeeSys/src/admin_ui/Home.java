@@ -21,10 +21,8 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.xml.internal.ws.assembler.dev.ServerTubelineAssemblyContext;
-
-import employeeClass.Employees;
-import employeeClass.Permission;
+import classes.Employees;
+import classes.Permission;
 import model.EmployeeModel;
 import model.PermissionModel;
 
@@ -51,6 +49,8 @@ public class Home {
 	
 	//label
 	private JLabel tittle;
+	private JLabel lblAllStaff;
+	private JLabel lblPermission;
 	
 	//button
 	private JButton btnEdit;
@@ -103,19 +103,21 @@ public class Home {
 
 	public static void fill_tablePermission() {
 		ArrayList<Permission> list = PermissionModel.all();
-		Object[] row = new Object[7];
+		Object[] row = new Object[8];
 		for (Permission p : list) {
 			row[0] = p.getId();
 			row[1] = p.geteID();
 			row[2] = p.getType();
 			row[3] = p.getApplyDate();
 			row[4] = p.getLeavingDate();
-			row[5] = p.getReason();
-			row[6] = p.getStatus();
+			row[5] = p.getToDate();
+			row[6] = p.getReason();
+			row[7] = p.getStatus();
 			model_permission.addRow(row);
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1191, 667);
@@ -131,7 +133,7 @@ public class Home {
 		bar.setLayout(null);
 			
 			//Title
-			tittle = new JLabel("All Staff");
+			tittle = new JLabel("Employee");
 			tittle.setHorizontalAlignment(SwingConstants.CENTER);
 			tittle.setFont(new Font("Times New Roman", Font.BOLD, 24));
 			tittle.setBounds(511, 0, 286, 59);
@@ -164,32 +166,35 @@ public class Home {
 		
 			//Button attendance
 			JLabel lblCheckAttandent = new JLabel("Attendance");
-			lblCheckAttandent.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-//					btnAccept.setEnabled(false);
-//					btnReject.setEnabled(false);
-//					btnDelete.setEnabled(false);
-					tittle.setText("Attandence");
-					panel_main.removeAll();
-					panel_main.repaint();
-					panel_main.revalidate();
-					
-					panel_main.add(panel_attendance);
-					panel_main.repaint();
-					panel_main.revalidate();
-				}
-			});
+//			lblCheckAttandent.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					lblAllStaff.setForeground(new Color(0, 0, 0));
+//					lblPermission.setForeground(new Color(0, 0, 0));
+//					lblCheckAttandent.setForeground(new Color(0, 0, 255));
+//					tittle.setText("Attandence");
+//					panel_main.removeAll();
+//					panel_main.repaint();
+//					panel_main.revalidate();
+//					
+//					panel_main.add(panel_attendance);
+//					panel_main.repaint();
+//					panel_main.revalidate();
+//				}
+//			});
 			lblCheckAttandent.setBounds(0, 157, 193, 59);
 			btn_sidebar.add(lblCheckAttandent);
 			lblCheckAttandent.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCheckAttandent.setFont(new Font("Times New Roman", Font.BOLD, 22));
 			
 			//Button permission
-			JLabel lblPermission = new JLabel("Permission");
+			lblPermission = new JLabel("Permission");
 			lblPermission.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblAllStaff.setForeground(new Color(0, 0, 0));
+					lblPermission.setForeground(new Color(0, 0, 255));
+					lblCheckAttandent.setForeground(new Color(0, 0, 0));
 					tittle.setText("Permission");
 					panel_main.removeAll();
 					panel_main.repaint();
@@ -223,16 +228,17 @@ public class Home {
 			});
 			btnAdd.setForeground(new Color(255, 255, 255));
 			btnAdd.setFont(new Font("Tahoma", Font.BOLD, 15));
-			btnAdd.setBackground(new Color(0, 0, 255));
+			btnAdd.setBackground(new Color(0, 0, 139));
 		//End of Side-bar//////////////////////////////////
 			
-		JLabel lblAllStaff = new JLabel("All Staff");
+		lblAllStaff = new JLabel("Employee");
+		lblAllStaff.setForeground(new Color(0, 0, 255));
 		lblAllStaff.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				btnAccept.setEnabled(false);
-//				btnReject.setEnabled(false);
-//				btnDelete.setEnabled(false);
+				lblAllStaff.setForeground(new Color(0, 0, 255));
+				lblPermission.setForeground(new Color(0, 0, 0));
+				lblCheckAttandent.setForeground(new Color(0, 0, 0));
 				panel_main.removeAll();
 				panel_main.repaint();
 				panel_main.revalidate();
@@ -240,7 +246,7 @@ public class Home {
 				panel_main.add(panel_showStaff);
 				panel_main.repaint();
 				panel_main.revalidate();
-				tittle.setText("All staff");
+				tittle.setText("Employee");
 				model_employees.setRowCount(0);
 				fill_tableEmployee(EmployeeModel.all());
 			}
@@ -260,7 +266,12 @@ public class Home {
 		// Panel to Show all Employees
 				//Table of all Employees
 				String[] employee_columnName = { "eID", "First Name", "Last Name", "Email", "DoB", "Phone", "Position", "Salary" };
-				model_employees = new DefaultTableModel();
+				model_employees = new DefaultTableModel() {
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				       return false;
+				    }
+				};
 				model_employees.setColumnIdentifiers(employee_columnName); 
 				
 				fill_tableEmployee(EmployeeModel.all());
@@ -307,6 +318,8 @@ public class Home {
 							if(EmployeeModel.delete(em.getID())) {
 								model_employees.setRowCount(0);
 								fill_tableEmployee(EmployeeModel.all());
+								btnEdit.setEnabled(false);
+								btnDelete.setEnabled(false);
 							} else {
 							  JOptionPane.showMessageDialog(null, "Error deleting Employee Make Sure This employee do not has any Permission record");
 							}
@@ -317,7 +330,7 @@ public class Home {
 				});
 				btnDelete.setForeground(Color.WHITE);
 				btnDelete.setFont(new Font("Tahoma", Font.BOLD, 15));
-				btnDelete.setBackground(new Color(255, 0, 0));
+				btnDelete.setBackground(new Color(178, 34, 34));
 				btnDelete.setBounds(828, 508, 137, 42);
 				panel_showStaff.add(btnDelete);
 				btnDelete.setEnabled(false);
@@ -329,6 +342,8 @@ public class Home {
 					public void actionPerformed(ActionEvent e) {
 						EditEm editEm = new EditEm(em);
 						editEm.frame.setVisible(true);
+						btnEdit.setEnabled(false);
+						btnDelete.setEnabled(false);
 					}
 				});
 				btnEdit.setForeground(Color.WHITE);
@@ -353,9 +368,6 @@ public class Home {
 								list = EmployeeModel.search(textField_search.getText());
 								model_employees.setRowCount(0);
 								fill_tableEmployee(list);
-//								for (int i=0; i<list.size(); i++) {
-//									System.out.println(list.get(i).toString());
-//								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
 							}
@@ -368,8 +380,13 @@ public class Home {
 					panel_showStaff.add(btnSearch);
 				
 				//Table of Permission
-				String[] permission_ColumnName = {"id", "eID", "Type", "ApplyDate", "LeavingDate", "Leaving Date", "Status"};
-				model_permission = new DefaultTableModel();
+				String[] permission_ColumnName = {"id", "eID", "Type", "SubmittedAt", "FromDate", "ToDate", "Reason", "Status"};
+				model_permission = new DefaultTableModel() {
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				       return false;
+				    }
+				};
 				model_permission.setColumnIdentifiers(permission_ColumnName);
 				fill_tablePermission();
 					
@@ -406,6 +423,8 @@ public class Home {
 							} else {
 								JOptionPane.showMessageDialog(null, "Error accepting permission request.");
 							}
+							btnAccept.setEnabled(false);
+							btnReject.setEnabled(false);
 						}
 					});
 					btnAccept.setEnabled(false);
@@ -427,21 +446,23 @@ public class Home {
 							} else {
 								JOptionPane.showMessageDialog(null, "Error rejecting permission request.");
 							}
+							btnAccept.setEnabled(false);
+							btnReject.setEnabled(false);
 						}
 					});
 					btnReject.setEnabled(false);
 					btnReject.setForeground(Color.WHITE);
 					btnReject.setFont(new Font("Tahoma", Font.BOLD, 15));
-					btnReject.setBackground(new Color(255, 160, 122));
+					btnReject.setBackground(new Color(255, 140, 0));
 					btnReject.setBounds(679, 508, 137, 42);
 					panel_permission.add(btnReject);
 					
 					btnDelete_Permission = new JButton("Delete");
+					btnDelete_Permission.setVisible(false);
 					btnDelete_Permission.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							int row = table_permission.getSelectedRow();	
 							int id = (int) table_permission.getValueAt(row, 0);
-//							System.out.println(id);
 							if (PermissionModel.delete(id)) {
 								JOptionPane.showMessageDialog(null, "Request deleted.");
 								model_permission.setRowCount(0);

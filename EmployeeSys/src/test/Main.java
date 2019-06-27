@@ -2,8 +2,8 @@ package test;
 
 import java.util.ArrayList;
 
-import employeeClass.Employees;
-import employeeClass.Permission;
+import classes.Employees;
+import classes.Permission;
 import model.EmployeeModel;
 import model.PermissionModel;
 

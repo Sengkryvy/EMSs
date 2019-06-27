@@ -16,10 +16,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
-import employeeClass.Employees;
 import model.EmployeeModel;
 
 import com.toedter.calendar.JDateChooser;
+
+import classes.Employees;
+
 import javax.swing.JComboBox;
 
 public class AddEm {
@@ -61,6 +63,7 @@ public class AddEm {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.inactiveCaption);
@@ -139,6 +142,7 @@ public class AddEm {
 				"Employee",
 				"Manager",
 		};
+		@SuppressWarnings("unchecked")
 		JComboBox comboBox_position = new JComboBox(position);
 
 		comboBox_position.setBounds(229, 324, 278, 31);
@@ -174,7 +178,7 @@ public class AddEm {
 							Home.fill_tableEmployee(EmployeeModel.all());
 							frame.dispose();
 						} else {
-							JOptionPane.showMessageDialog(null, "Error adding employee to database");
+							JOptionPane.showMessageDialog(null, "Error adding employee to database, please make sure you input information correctly.");
 						}
 
 					} catch (Exception e) {
@@ -195,8 +199,8 @@ public class AddEm {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 			   	if(input==0) {
 			   		frame.dispose();
-			   		Home home= new Home();
-			   		home.frame.setVisible(true);
+//			   		Home home= new Home();
+//			   		home.frame.setVisible(true);
 			  }   
 			}
 		});

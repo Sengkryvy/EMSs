@@ -1,4 +1,4 @@
-package employeeClass;
+package classes;
 
 public class Employees {
 	private int ID;

@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import employeeClass.Employees;
+import classes.Employees;
 import model.EmployeeModel;
 
 import javax.swing.JScrollPane;

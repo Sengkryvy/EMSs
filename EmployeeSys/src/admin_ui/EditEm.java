@@ -17,10 +17,12 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import employeeClass.Employees;
 import model.EmployeeModel;
 
 import com.toedter.calendar.JDateChooser;
+
+import classes.Employees;
+
 import javax.swing.JComboBox;
 
 public class EditEm {
@@ -57,10 +59,8 @@ public class EditEm {
 	 * Create the application.
 	 */
 	public EditEm(Employees emp) {
-		System.out.println("emp id = " + emp.getID());
 		em = emp;
 //		em.setID(emp.getID());
-		System.out.println("em id = " + em.getID());
 		initialize();
 	}
 	
@@ -71,6 +71,7 @@ public class EditEm {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Employee MS");
@@ -187,8 +188,6 @@ public class EditEm {
 											comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
 				em_updated.setID(em.getID());
 				try {
-					System.out.println(em_updated.toString());
-					System.out.println(em_updated.getID());
 					if (EmployeeModel.edit(em_updated)) {
 						Home.model_employees.setRowCount(0);
 						Home.fill_tableEmployee(EmployeeModel.all());

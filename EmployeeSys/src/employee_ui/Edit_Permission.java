@@ -20,9 +20,10 @@ import classes.Permission;
 
 import javax.swing.JTextPane;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 
-public class Create_permission_record {
+public class Edit_Permission {
 	
 	//variable declaration
 	private	JTextPane textPane_reason;
@@ -46,7 +47,7 @@ public class Create_permission_record {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Create_permission_record window = new Create_permission_record();
+					Edit_Permission window = new Edit_Permission();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,12 +59,14 @@ public class Create_permission_record {
 	/**
 	 * Create the application.
 	 */
-	public Create_permission_record() {
+	public Edit_Permission() {
 		initialize();
 	}
 	
-	public Create_permission_record(int id) {
+	public Edit_Permission(int id, Permission p) {
 		eID = id;
+		Edit_Permission.p = p;
+		p.seteID(eID);
 		initialize();
 	}
 
@@ -79,13 +82,13 @@ public class Create_permission_record {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblChangePassword = new JLabel("Create Permission Form");
+		JLabel lblChangePassword = new JLabel("Update Permission Form");
 		lblChangePassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChangePassword.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lblChangePassword.setBounds(114, 31, 352, 31);
 		frame.getContentPane().add(lblChangePassword);
 		
-		JButton btnNewButton = new JButton("Create");
+		JButton btnNewButton = new JButton("Update");
 		btnNewButton.addActionListener(new ActionListener() {
 			//On create click
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +103,7 @@ public class Create_permission_record {
 					p.setToDate(toDate);
 					p.setReason(textPane_reason.getText());
 					//check if the creation success
-					if (PermissionModel.create(p)) {
+					if (PermissionModel.edit(p)) {
 						JOptionPane.showMessageDialog(null, "Permission is successfully created.");
 						Home_Emp.model_permission.setRowCount(0);
 						Home_Emp.fill_tablePermission(eID);
@@ -140,6 +143,7 @@ public class Create_permission_record {
 		dateChooser_toDate = new JDateChooser();
 		dateChooser_toDate.getCalendarButton().setText("Date");
 		dateChooser_toDate.setDateFormatString("yyyy-MM-dd");
+		dateChooser_toDate.setDate(Date.valueOf(p.getToDate()));
 		dateChooser_toDate.setBounds(215, 233, 251, 39);
 		dateChooser_toDate.getDateEditor().addPropertyChangeListener(
 			    new PropertyChangeListener() {
@@ -149,7 +153,7 @@ public class Create_permission_record {
 			            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							date = sdf.format(dateChooser_fromDate.getDate());
 			            	if (date.compareTo(sdf.format(dateChooser_toDate.getDate())) > 0) {
-			            		dateChooser_toDate.setDate(java.sql.Date.valueOf(date));
+			            		dateChooser_toDate.setDate(java.sql.Date.valueOf(p.getToDate()));
 			            		JOptionPane.showMessageDialog(null, "Please choose a date later than " + date);
 			            	}
 			            }
@@ -172,16 +176,22 @@ public class Create_permission_record {
 			            if ("date".equals(e.getPropertyName())) {
 			            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							date = sdf.format(dateChooser_fromDate.getDate());
-			            	dateChooser_toDate.setDate(java.sql.Date.valueOf(date));
+//			            	dateChooser_toDate.setDate(java.sql.Date.valueOf(date));
+			            	if (date.compareTo(sdf.format(dateChooser_toDate.getDate())) > 0) {
+			            		dateChooser_toDate.setDate(java.sql.Date.valueOf(date));
+//			            		JOptionPane.showMessageDialog(null, "Please choose a date later than " + date);
+			            	}
 			            }
 			        }
 			    });
 		dateChooser_fromDate.getCalendarButton().setText("Date");
 		dateChooser_fromDate.setDateFormatString("yyyy-MM-dd");
+		dateChooser_fromDate.setDate(Date.valueOf(p.getLeavingDate()));
 		dateChooser_fromDate.setBounds(215, 163, 251, 39);
 		frame.getContentPane().add(dateChooser_fromDate);
 		
 		textPane_reason = new JTextPane();
+		textPane_reason.setText(p.getReason());
 		textPane_reason.setForeground(new Color(0, 0, 0));
 		textPane_reason.setBounds(215, 301, 251, 67);
 		frame.getContentPane().add(textPane_reason);

@@ -1,4 +1,4 @@
-package employeeClass;
+package classes;
 
 public class Permission {
 	private int id;
@@ -6,7 +6,19 @@ public class Permission {
 	private String type;
 	private String applyDate;
 	private String leavingDate;
+	private String toDate;
 	private String reason;
+
+	public Permission(int eID, String type, String applyDate, String leavingDate, String toDate, String reason) {
+		super();
+		this.eID = eID;
+		this.type = type;
+		this.applyDate = applyDate;
+		this.leavingDate = leavingDate;
+		this.toDate = toDate;
+		this.reason = reason;
+	}
+
 	private String status;
 	
 	public Permission() {
@@ -20,19 +32,7 @@ public class Permission {
 		this.applyDate = applyDate;
 		this.leavingDate = leavingDate;
 		this.reason = reason;
-	}
-	
-	public Permission(int eID, String type, String applyDate, String leavingDate, String reason, String status) {
-		super();
-		this.eID = eID;
-		this.type = type;
-		this.applyDate = applyDate;
-		this.leavingDate = leavingDate;
-		this.reason = reason;
-		this.status = status;
-	}
-
-	
+	}	
 	
 	@Override
 	public String toString() {
@@ -40,6 +40,14 @@ public class Permission {
 				+ ", leavingDate=" + leavingDate + ", reason=" + reason + ", status=" + status + "]";
 	}
 
+	
+	public String getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
 	public String getStatus() {
 		return status;
 	}

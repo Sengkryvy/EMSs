@@ -17,11 +17,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import admin_ui.Home;
+import classes.Employees;
 
 //import com.luv2code.jdbc.employeesearch.ui.EmployeeSearchApp;
 
 import database.AccountConnection;
-import employeeClass.Employees;
 
 import javax.swing.JPasswordField;
 import javax.swing.JEditorPane;
@@ -130,7 +130,6 @@ public class Login {
 						window.frame.setVisible(true);
 						frame.dispose();
 					} else if ((em = AccountConnection.Emp_login(username, paString)) != null) {
-						System.out.println(em.toString());
 						em.setPassword(paString);
 						Home_Emp window = new Home_Emp(em);
 						window.frame.setVisible(true);

@@ -2,8 +2,8 @@ package model;
 
 import java.util.*;
 
+import classes.Employees;
 import database.ConnectDB;
-import employeeClass.Employees;
 
 import java.sql.*;
 
