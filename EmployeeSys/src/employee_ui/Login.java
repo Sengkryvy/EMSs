@@ -68,19 +68,19 @@ public class Login {
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Times New Roman", Font.BOLD, 33));
-		lblLogin.setBounds(250, 25, 86, 41);
+		lblLogin.setBounds(248, 27, 126, 41);
 		frame.getContentPane().add(lblLogin);
 		
-		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblUsername = new JLabel("Email");
+		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-		lblUsername.setBounds(76, 103, 110, 27);
+		lblUsername.setBounds(76, 103, 97, 27);
 		frame.getContentPane().add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-		lblPassword.setBounds(76, 164, 110, 27);
+		lblPassword.setBounds(63, 164, 110, 27);
 		frame.getContentPane().add(lblPassword);
 		
 		username_field = new JTextField();
@@ -92,7 +92,7 @@ public class Login {
 		btnLogin.setForeground(new Color(255, 255, 255));
 		btnLogin.setBackground(new Color(51, 153, 255));
 		btnLogin.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnLogin.setBounds(259, 222, 97, 25);
+		btnLogin.setBounds(248, 220, 126, 34);
 		frame.getContentPane().add(btnLogin);
 		
 		passwordField = new JPasswordField();
@@ -104,7 +104,7 @@ public class Login {
 		btnExit.setForeground(Color.WHITE);
 		btnExit.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		btnExit.setBackground(new Color(255, 51, 51));
-		btnExit.setBounds(259, 267, 97, 25);
+		btnExit.setBounds(248, 269, 126, 34);
 		frame.getContentPane().add(btnExit);
 		frame.setBounds(100, 100, 628, 418);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

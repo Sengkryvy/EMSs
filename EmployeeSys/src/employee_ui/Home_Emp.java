@@ -52,6 +52,7 @@ public class Home_Emp {
 	private JTextField textField_phone;
 	private JDateChooser dateChooser_dob;
 	private JButton btnUpdate;
+	int id;
 
 	
 	//label
@@ -422,6 +423,7 @@ public class Home_Emp {
 								btnEdit_Permission.setEnabled(true);
 								btnDelete.setEnabled(true);
 							}
+							id = (int) table_permission.getValueAt(row, 0);
 
 							
 						}
@@ -442,6 +444,23 @@ public class Home_Emp {
 					panel_permission.add(btnCreatePermission);
 					//DeletePermission
 					btnDelete = new JButton("Delete");
+					btnDelete.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
+									JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+							if(input==0) {
+								if(PermissionModel.delete(id)) {
+									model_permission.setRowCount(0);
+									fill_tablePermission(id);
+									JOptionPane.showMessageDialog(null, "Deleted.");
+								} else {
+								  JOptionPane.showMessageDialog(null, "Error deleting Permission!");
+								}
+
+							} ;
+							
+						}
+					});
 					btnDelete.setForeground(Color.WHITE);
 					btnDelete.setFont(new Font("Tahoma", Font.BOLD, 15));
 					btnDelete.setBackground(new Color(178, 34, 34));
@@ -473,12 +492,6 @@ public class Home_Emp {
 						panel_main.add(panel_attendance);
 						panel_attendance.setBackground(new Color(224, 255, 255));
 						panel_attendance.setLayout(null);
-						
-							JLabel lblAttendancePage = new JLabel("Attendance page ");
-							lblAttendancePage.setHorizontalAlignment(SwingConstants.CENTER);
-							lblAttendancePage.setFont(new Font("Times New Roman", Font.BOLD, 28));
-							lblAttendancePage.setBounds(386, 5, 206, 33);
-							panel_attendance.add(lblAttendancePage);
 					panel_main.repaint();
 					panel_main.revalidate();
 					lblTitle.setText("Profile");

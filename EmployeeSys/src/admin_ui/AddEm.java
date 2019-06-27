@@ -177,12 +177,9 @@ public class AddEm {
 												comboBox_position.getSelectedItem().toString(), Double.parseDouble(textField_salary.getText()));
 					try {
 						if (EmployeeModel.create(em)) {
-//							frame.dispose();
-//							ShowAllEmploye show = new ShowAllEmploye();
-//							show.frame.setVisible(true);
 							Home.model_employees.setRowCount(0);
 							Home.fill_tableEmployee(EmployeeModel.all());
-//							frame.dispose();
+							frame.dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "Error adding employee to database");
 						}
