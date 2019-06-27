@@ -72,6 +72,7 @@ public class Home_Emp {
 	private JButton btnCreatePermission;
 	private JButton btnDelete;
 	private JButton btnEdit_Permission;
+	private Permission p = new Permission();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,6 +95,7 @@ public class Home_Emp {
 		this.em = em;
 		initialize();
 	}
+	
 	
 	public static void fill_tablePermission(int id) {
 		ArrayList<Permission> list = PermissionModel.all(id);
@@ -416,15 +418,23 @@ public class Home_Emp {
 						public void mouseClicked(MouseEvent e) {
 //							int col = table_permission.getSelectedColumn();
 							int row = table_permission.getSelectedRow();
+							
 							if (e.getClickCount() == 2) {
 								System.out.println("Double clicked");
 							}
 							if (table_permission.getValueAt(row, 5).equals("Not Respond")) {
 								btnEdit_Permission.setEnabled(true);
 								btnDelete.setEnabled(true);
+																
+								p.setId(Integer.parseInt(table_permission.getValueAt(row ,0).toString()));
+								//p.seteID(Integer.parseInt( table_permission.getValueAt(row, 1).toString()));
+								p.setType(table_permission.getValueAt(row, 1).toString());
+								p.setApplyDate(table_permission.getValueAt(row, 2).toString());
+								p.setLeavingDate(table_permission.getValueAt(row, 3).toString());
+								p.setReason(table_permission.getValueAt(row, 4).toString());
+								p.seteID(em.getID());
+							//	p.seteID(eID);
 							}
-
-							
 						}
 					});
 					scrollPane_permission_table.setViewportView(table_permission);
@@ -452,6 +462,9 @@ public class Home_Emp {
 					btnEdit_Permission = new JButton("Edit");
 					btnEdit_Permission.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							Edit_permission edit=new Edit_permission(p);
+							edit.frame.setVisible(true);
+							//frame.dispose();
 						}
 					});
 					btnEdit_Permission.setForeground(Color.WHITE);

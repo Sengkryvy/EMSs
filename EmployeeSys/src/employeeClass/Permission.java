@@ -32,8 +32,6 @@ public class Permission {
 		this.status = status;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Permission [id=" + id + ", eID=" + eID + ", type=" + type + ", applyDate=" + applyDate
