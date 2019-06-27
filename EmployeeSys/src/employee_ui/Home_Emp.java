@@ -97,11 +97,16 @@ public class Home_Emp {
 	}
 	
 	public static void fill_tablePermission(int id) {
+//		System.out.println(id);
 		ArrayList<Permission> list = PermissionModel.all(id);
+		for (int i =0; i<list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
 		//DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
 		Object[] row = new Object[6];
 		for (Permission p : list) {
 //			System.out.println(p.toString());
+			System.out.println("start");
 			row[0] = p.getId();
 			row[1] = p.getType();
 			row[2] = p.getApplyDate();
@@ -109,8 +114,9 @@ public class Home_Emp {
 			row[4] = p.getReason();
 			row[5] = p.getStatus();
 			model_permission.addRow(row);
-
+			System.out.println("end");
 		}
+		System.out.println("\n\n\n\n");
 		
 	}
 	
@@ -366,7 +372,7 @@ public class Home_Emp {
 					} else {
 						JOptionPane.showMessageDialog(null, "Error updating information.");
 					}
-					System.out.println(em.toString());
+//					System.out.println(em.toString());
 				}
 			});
 			btnUpdate.setForeground(Color.WHITE);
@@ -417,14 +423,15 @@ public class Home_Emp {
 //							int col = table_permission.getSelectedColumn();
 							int row = table_permission.getSelectedRow();
 							if (e.getClickCount() == 2) {
-								System.out.println("Double clicked");
+//								System.out.println("Double clicked");
 							}
 							if (table_permission.getValueAt(row, 5).equals("Not Respond")) {
 								btnEdit_Permission.setEnabled(true);
 								btnDelete.setEnabled(true);
 							}
-							id = (int) table_permission.getValueAt(row, 0);
+							id = Integer.parseInt(table_permission.getValueAt(row, 0).toString());
 
+//							System.out.println(id);
 							
 						}
 					});
@@ -450,15 +457,12 @@ public class Home_Emp {
 									JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 							if(input==0) {
 								if(PermissionModel.delete(id)) {
-									model_permission.setRowCount(0);
-									fill_tablePermission(id);
 									JOptionPane.showMessageDialog(null, "Deleted.");
 								} else {
 								  JOptionPane.showMessageDialog(null, "Error deleting Permission!");
 								}
 
 							} ;
-							
 						}
 					});
 					btnDelete.setForeground(Color.WHITE);

@@ -86,10 +86,8 @@ public class Home {
 	}
 	
 	public static void fill_tableEmployee(ArrayList<Employees> list) {
-//		ArrayList<Employees> list = EmployeeModel.all();
-		//DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
+
 		Object[] row = new Object[8];
-		//String[] row = new String[8];
 		for (Employees e : list) {
 			row[0] = e.getID();
 			row[1] = e.getFirstname();
@@ -105,9 +103,7 @@ public class Home {
 
 	public static void fill_tablePermission() {
 		ArrayList<Permission> list = PermissionModel.all();
-		//DefaultTableModel model = (DefaultTableModel) table_employees.getModel();
 		Object[] row = new Object[7];
-		//String[] row = new String[8];
 		for (Permission p : list) {
 			row[0] = p.getId();
 			row[1] = p.geteID();
@@ -357,9 +353,9 @@ public class Home {
 								list = EmployeeModel.search(textField_search.getText());
 								model_employees.setRowCount(0);
 								fill_tableEmployee(list);
-								for (int i=0; i<list.size(); i++) {
-									System.out.println(list.get(i).toString());
-								}
+//								for (int i=0; i<list.size(); i++) {
+//									System.out.println(list.get(i).toString());
+//								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Error! Please input anything.");
 							}
@@ -445,7 +441,7 @@ public class Home {
 						public void actionPerformed(ActionEvent e) {
 							int row = table_permission.getSelectedRow();	
 							int id = (int) table_permission.getValueAt(row, 0);
-							System.out.println(id);
+//							System.out.println(id);
 							if (PermissionModel.delete(id)) {
 								JOptionPane.showMessageDialog(null, "Request deleted.");
 								model_permission.setRowCount(0);

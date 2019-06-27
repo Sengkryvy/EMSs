@@ -116,7 +116,7 @@ public class Create_permission_record {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton.setBackground(new Color(0, 0, 139));
-		btnNewButton.setBounds(194, 342, 151, 39);
+		btnNewButton.setBounds(300, 342, 151, 39);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblType = new JLabel("Type :");
@@ -155,6 +155,18 @@ public class Create_permission_record {
 		textPane_reason.setForeground(new Color(0, 0, 0));
 		textPane_reason.setBounds(215, 231, 251, 67);
 		frame.getContentPane().add(textPane_reason);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		btnCancel.setForeground(Color.WHITE);
+		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCancel.setBackground(new Color(128, 0, 0));
+		btnCancel.setBounds(114, 342, 151, 39);
+		frame.getContentPane().add(btnCancel);
 
 	}
 }

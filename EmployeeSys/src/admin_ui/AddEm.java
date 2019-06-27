@@ -158,16 +158,9 @@ public class AddEm {
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				frame.dispose();
 
 				if (textField_firstName.getText().equals("")||textField_lastName.getText().equals("")||textField_phone.getText().equals("")||comboBox_position.getSelectedItem().toString().equals("")
 						||textField_salary.getText().equals("")) {
-//					int input = JOptionPane.showConfirmDialog(null, "Missing something", "Missing", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-//				   	if(input==2) {
-//				   		frame.dispose();
-//				   		Home home= new Home();
-//				   		home.frame.setVisible(true);
-//				  } 
 					JOptionPane.showMessageDialog(null, "Please fill all informations.");
 					
 				}else {

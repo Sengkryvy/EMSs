@@ -45,7 +45,6 @@ public class PermissionModel {
 						rs.getString("applyDate"), rs.getString("leavingDate"), rs.getString("reason"));
 				permission.setId(rs.getInt("id"));
 				permission.setStatus(rs.getString("status"));
-				System.out.println(permission.toString());
 				list.add(permission);
 			}
 			
