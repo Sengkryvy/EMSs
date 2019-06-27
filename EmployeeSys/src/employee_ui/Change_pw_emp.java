@@ -103,7 +103,7 @@ public class Change_pw_emp {
 		JLabel lblChangePassword = new JLabel("Change Password");
 		lblChangePassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChangePassword.setFont(new Font("Times New Roman", Font.BOLD, 30));
-		lblChangePassword.setBounds(115, 31, 278, 31);
+		lblChangePassword.setBounds(185, 32, 278, 31);
 		frame.getContentPane().add(lblChangePassword);
 		
 		JButton btnNewButton = new JButton("Confirm Change");
@@ -142,6 +142,17 @@ public class Change_pw_emp {
 		});
 		btnNewButton.setBounds(187, 270, 184, 39);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		btnBack.setForeground(Color.WHITE);
+		btnBack.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnBack.setBackground(Color.GRAY);
+		btnBack.setBounds(12, 32, 105, 39);
+		frame.getContentPane().add(btnBack);
 	}
-
 }

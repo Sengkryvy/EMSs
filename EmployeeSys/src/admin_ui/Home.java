@@ -307,15 +307,15 @@ public class Home {
 					public void actionPerformed(ActionEvent e) {
 						int input = JOptionPane.showConfirmDialog(null, "Do you want to cancel it ?", "Cancel",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-					  if(input==0) {
-						  if(EmployeeModel.delete(em.getID())) {
+						if(input==0) {
+							if(EmployeeModel.delete(em.getID())) {
 								model_employees.setRowCount(0);
 								fill_tableEmployee(EmployeeModel.all());
-						  } else {
+							} else {
 							  JOptionPane.showMessageDialog(null, "Error deleting Employee Make Sure This employee do not has any Permission record");
-						  }
+							}
 
-					  }   
+						}   
 
 					}
 				});
